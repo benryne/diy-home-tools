@@ -19,13 +19,13 @@ class Project extends React.Component {
             return(
                 <div>
                     <h1> {this.props.category} > {this.props.project} </h1>
-                    <ToolList onClick={this.displayToolInfo}></ToolList>
+                    <ToolList onClickFn={this.displayToolInfo}></ToolList>
                 </div>
             )
         }
         else {
             return(
-                <div onClick={this.displayToolInfo}>
+                <div onClick={this.displayProjectInfo}>
                     {this.props.project}
                     {/* <ToolList></ToolList> */}
                 </div>
@@ -33,10 +33,14 @@ class Project extends React.Component {
         }
     }
 
-    displayToolInfo = () => {
-        this.setState({clicked: true});
-        console.log(this.props)
+    displayProjectInfo = async () => {
+        await this.setState({clicked: true, current: this.props.project});
+        console.log(this.state)
         this.props.onClickFn(this.props.project);
+    }
+
+    displayToolInfo = async (tool) => {
+        console.log("tool:" + tool);
     }
 }
 

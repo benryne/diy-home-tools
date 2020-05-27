@@ -1,22 +1,27 @@
 import React from 'react';
 import Project from '../Project/project';
-import { async } from 'q';
 
-
-class ProjectList extends React.Component {
+class SubCategory extends React.Component {
 
     constructor() {
         super(); 
         this.state = {  
             clicked: false,
-            current: ''
+            category: '',
+            projects: ['proj1','proj2','proj3'],
+            project: ''
         };
     }
 
     render() {
+        const { projects } = this.state;
 
-        const { projects } = this.props;
-        if(Array.isArray(projects)) {
+        if(this.state.clicked) {
+            return(
+                <Project onClickFn={this.displayProjectInfo} project={this.state.project} category={this.props.category} clicked={true}></Project>
+            )
+        }
+        else {
             return(
                 <div>
                     <h1> {this.props.category}</h1>
@@ -32,19 +37,15 @@ class ProjectList extends React.Component {
                 </div>
             )
         }
-        else {
-            return(
-                <Project onClickFn={this.displayProjectInfo} project={projects} category={this.props.category} clicked={true}></Project>
-            )
-        }
     }
 
     displayProjectInfo = async (project) => {
-        await this.setState({clicked: true, current: project});
+        console.log(this.state.projects);
+        await this.setState({clicked: true, category: this.props.category, project: project});
         console.log(this.state);
         this.props.onClickFn(project);
     }
 
 }
 
-export default ProjectList;
+export default SubCategory;

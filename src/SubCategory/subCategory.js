@@ -3,48 +3,126 @@ import Project from '../Project/project';
 
 class SubCategory extends React.Component {
 
-    constructor() {
-        super(); 
-        this.state = {  
-            clicked: false,
-            category: '',
-            projects: ['proj1','proj2','proj3'],
-            project: ''
-        };
+    constructor(props) {
+        super(props); 
+        if(this.props.subCategory.name === 'Wood') {
+            this.state = {  
+                clicked: false,
+                display: true,
+                projects: [
+                    { name: 'Placing Floor', clicked: false, display: true },
+                    { name: 'Removing Floor', clicked: false, display: true }
+                ]
+            };
+        }
+        if(this.props.subCategory.name === 'Carpet') {
+            this.state = {  
+                clicked: false,
+                display: true,
+                projects: [
+                    { name: 'Ripping up Carpet', clicked: false, display: true },
+                    { name: 'Placing Carpet', clicked: false, display: true }
+                ]
+            };
+        }
+        if(this.props.subCategory.name === 'Sink') {
+            this.state = {  
+                clicked: false,
+                display: true,
+                projects: [
+                    { name: 'Sink Plumbing', clicked: false, display: true },
+                    { name: 'Snaking Drain', clicked: false, display: true }
+                ]
+            };
+        }
+        if(this.props.subCategory.name === 'Bathtub') {
+            this.state = {  
+                clicked: false,
+                display: true,
+                projects: [
+                    { name: 'Snaking Drain', clicked: false, display: true },
+                    { name: 'Inserting Tub', clicked: false, display: true }
+                ]
+            };
+        }
+        if(this.props.subCategory.name === 'Shower') {
+            this.state = {  
+                clicked: false,
+                display: true,
+                projects: [
+                    { name: 'Floor Tiling', clicked: false, display: true },
+                    { name: 'Drain', clicked: false, display: true }
+                ]
+            };
+        }
     }
 
     render() {
-        const { projects } = this.state;
 
-        if(this.state.clicked) {
+        const projects = this.state.projects;
+
+        if(this.props.subCategory.clicked) {
             return(
-                <Project onClickFn={this.displayProjectInfo} project={this.state.project} category={this.props.category} clicked={true}></Project>
-            )
-        }
-        else {
-            return(
-                <div>
-                    <h1> {this.props.category}</h1>
-                    <div className='projectsContainer'>
-                        {
-                            projects.map((project,index) => {
-                                return(
-                                    <Project onClickFn={this.displayProjectInfo} key={index} project={project} category={this.props.category} clicked={false}></Project>
-                                )
-                            })
-                        }
-                    </div>
+                <div className='projectContainer'>
+                {
+                    projects.map((project,index) => {
+                        return(
+                            <Project pathFn={this.passPathUp} onClickFn={this.displayToolsInProject} key={index} project={project}></Project>
+                        )
+                    })
+                }
                 </div>
             )
         }
+        else if(this.props.subCategory.display) {
+            return(
+                <div onClick={this.displayProjectsInSubCategory}>
+                    {this.props.subCategory.name}
+                </div>
+            )
+
+        }
+        else 
+            return null;
     }
 
-    displayProjectInfo = async (project) => {
-        console.log(this.state.projects);
-        await this.setState({clicked: true, category: this.props.category, project: project});
-        console.log(this.state);
-        this.props.onClickFn(project);
+    displayProjectsInSubCategory = async () => {
+        await this.setState
+        this.props.onClickFn(this.props.subCategory.name);
+        this.passPathUp(this.props.subCategory.name);
     }
+
+    displayToolsInProject = async (project) => {
+        console.log(project);
+        const updatedProjects = this.state.projects.map(proj => {
+            if(project.name === proj.name)
+              return {
+                name: proj.name,
+                clicked: true,
+                display: true
+              }
+            else
+              return {
+                name: proj.name,
+                clicked: false,
+                display: false
+              } 
+          });
+        await this.setState({projects: updatedProjects})
+        // this.props.onClickFn(project.name);
+        console.log(this.state)
+    }
+
+    passPathUp = async (path) => {
+        this.props.pathFn(path);
+    }
+
+    // displayProjectsInSubCategory = async (project) => {
+    //     console.log(this.state.projects);
+    //     await this.setState({clicked: true, category: this.props.category, project: project});
+    //     console.log(this.state);
+    //     this.props.onClickFn(this);
+    // }
 
 }
 

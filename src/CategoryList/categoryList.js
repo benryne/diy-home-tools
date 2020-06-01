@@ -15,48 +15,29 @@ class CategoryList extends React.Component {
 
     render() {
         
-        // if(this.state.clicked) {
-        //     return(
-        //         <div>
-        //             <h1> this.state.path </h1>
-        //             <Category onClickFn={this.DisplayProjectsInCategory} clicked={true} name={this.state.current}></Category>
-        //         </div>
-        //         )
-        // }
-        // else {
-        //     return(
-        //         <div>
-        //             <Category onClickFn={this.DisplayProjectsInCategory} clicked={false} name='Floor'></Category>
-        //             <Category onClickFn={this.DisplayProjectsInCategory} clicked={false} name='Drywall'></Category>
-        //         </div>
-        //     )
-        // }
         const { categories } = this.props;
-        // if(Array.isArray(categories)) {
             return(
                 <div className='categoryContainer'>
                 {
                     categories.map((category,index) => {
                         return(
-                            <Category onClickFn={this.DisplayProjectsInCategory} key={index} category={category}></Category>
+                            <Category pathFn={this.passPathUp} onClickFn={this.DislaySubCategories} key={index} category={category}></Category>
                         )
                     })
                 }
                 </div>
             )
-        // }
-        // else {
-        //     <Category onClickFn={this.DisplayProjectsInCategory} clicked={false} ></Category>
-        // }
 
     }
 
-    DisplayProjectsInCategory = (category,path) => {
-        console.log(this.props);
+    DislaySubCategories = (category,path) => {
         this.setState({clicked: true, current: category, path: path });
         this.props.onClickFn(category)
     }
 
+    passPathUp = async (path) => {
+        this.props.pathFn(path);
+    }
 }
 
 export default CategoryList;

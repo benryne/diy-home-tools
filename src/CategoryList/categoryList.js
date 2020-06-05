@@ -35,8 +35,8 @@ class CategoryList extends React.Component {
         this.props.onClickFn(category)
     }
 
-    passPathUp = async (path) => {
-        this.props.pathFn(path);
+    passPathUp = async (path,type) => {
+        this.props.pathFn(path,type);
     }
 }
 

@@ -89,7 +89,7 @@ class SubCategory extends React.Component {
     displayProjectsInSubCategory = async () => {
         await this.setState
         this.props.onClickFn(this.props.subCategory.name);
-        this.passPathUp(this.props.subCategory.name);
+        this.passPathUp(this.props.subCategory.name,'subcategory');
     }
 
     displayToolsInProject = async (project) => {
@@ -113,8 +113,8 @@ class SubCategory extends React.Component {
         console.log(this.state)
     }
 
-    passPathUp = async (path) => {
-        this.props.pathFn(path);
+    passPathUp = async (path,type) => {
+        this.props.pathFn(path,type);
     }
 
     // displayProjectsInSubCategory = async (project) => {

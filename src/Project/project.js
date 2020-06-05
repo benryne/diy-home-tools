@@ -50,7 +50,7 @@ class Project extends React.Component {
         await this.setState({clicked: true, current: this.props.project});
         console.log(this.state)
         this.props.onClickFn(this.props.project);
-        this.props.pathFn(this.props.project.name);
+        this.props.pathFn(this.props.project.name,'project');
     }
 
     displayToolsInProject = async (toolClicked) => {
@@ -74,8 +74,8 @@ class Project extends React.Component {
         console.log(this.state)
     }
 
-    passPathUp = (tool) => {
-        this.props.pathFn(tool);
+    passPathUp = (tool,type) => {
+        this.props.pathFn(tool,type);
     }
 }
 

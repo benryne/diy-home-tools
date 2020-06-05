@@ -25,7 +25,7 @@ class Tool extends React.Component {
         console.log('here');
         await this.setState({clicked: true, current: this.props.tool})
         await this.props.onClickFn(this.props.tool);
-        await this.props.pathFn(this.props.tool.name);
+        await this.props.pathFn(this.props.tool.name,'tool');
     }
 
 }

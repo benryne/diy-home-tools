@@ -86,7 +86,7 @@ class Category extends React.Component {
 
     CategoryOnClick = () => {
         this.props.onClickFn(this.props.category.name);
-        this.passPathUp(this.props.category.name);
+        this.passPathUp(this.props.category.name,'category');
     }
     
     displayProjectsInSubCategory = async (subCategory) => {
@@ -112,8 +112,8 @@ class Category extends React.Component {
         console.log(this.state);
     }
 
-    passPathUp = async (path) => {
-        this.props.pathFn(path);
+    passPathUp = async (path,type) => {
+        this.props.pathFn(path,type);
     }
 
 }

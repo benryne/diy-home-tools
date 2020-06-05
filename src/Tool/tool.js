@@ -2,31 +2,37 @@ import React from 'react';
 
 class Tool extends React.Component {
 
-    constructor() {
-        super(); 
+    constructor(props) {
+        super(props); 
         this.state = {  
+            display: this.props.display,
             clicked: false,
-            current: ''
+            tool: this.props.tool 
         };
     }
 
     render() {
-        if(this.props.tool.clicked) {
-            return(<div> TOOL INFO</div>)
-        }
-        else if(this.props.tool.display) {
-            return(<div onClick={this.toolOnClick}>{this.props.tool.name}</div>)
+        if(this.props.display) {
+            return(<div onClick={this.toolOnClick}>{this.props.tool}</div>)
         }
         else
             return null;
     }
 
     toolOnClick = async () => {
-        console.log('here');
-        await this.setState({clicked: true, current: this.props.tool})
+        await this.setState({clicked: true, tool: this.props.tool})
         await this.props.onClickFn(this.props.tool);
-        await this.props.pathFn(this.props.tool.name,'tool');
     }
+
+    componentDidUpdate = async(prevProps) => {
+        if(prevProps !== this.props) {
+            await this.setState({tool: this.props.tool, display: this.props.display})
+        }
+        else {
+            console.log('State did not change!')
+        }
+    }
+
 
 }
 

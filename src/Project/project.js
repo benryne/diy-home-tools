@@ -1,43 +1,23 @@
 import React from 'react';
 import Tool from '../Tool/tool';
+import { async } from 'q';
 
 
 class Project extends React.Component {
 
-    constructor() {
-        super(); 
+    constructor(props) {
+        super(props); 
         this.state = {  
-            clicked: false,
-            display: true,
-            tools: [
-                { name: 'tool1', clicked: false, display: true },
-                { name: 'tool2', clicked: false, display: true },
-                { name: 'tool3', clicked: false, display: true }
-            ]
+            display: this.props.display,
+            project: this.props.project
         };
     }
 
     render() {
-
-        const tools = this.state.tools;
-
-        if(this.props.project.clicked) {
-            return(
-                <div className='projectContainer'>
-                {
-                    tools.map((tool,index) => {
-                        return(
-                            <Tool pathFn={this.passPathUp} onClickFn={this.displayToolsInProject} key={index} tool={tool}></Tool>
-                        )
-                    })
-                }
-                </div>
-            )
-        }
-        else if(this.props.project.display) {
+        if(this.state.display) {
             return(
                 <div onClick={this.displayProjectInfo}>
-                    {this.props.project.name}
+                    {this.state.project}
                 </div>
             )
 
@@ -47,36 +27,19 @@ class Project extends React.Component {
     }
 
     displayProjectInfo = async () => {
-        await this.setState({clicked: true, current: this.props.project});
-        console.log(this.state)
-        this.props.onClickFn(this.props.project);
-        this.props.pathFn(this.props.project.name,'project');
+        await this.setState({display: false})
+        this.props.onClickFn(this.state.project);
     }
 
-    displayToolsInProject = async (toolClicked) => {
-        console.log(toolClicked);
-        const updatedTools = this.state.tools.map(tool => {
-            if(toolClicked.name === tool.name)
-              return {
-                name: tool.name,
-                clicked: true,
-                display: true
-              }
-            else
-              return {
-                name: tool.name,
-                clicked: false,
-                display: false
-              } 
-          });
-        await this.setState({tools: updatedTools})
-        // this.props.onClickFn(project.name);
-        console.log(this.state)
+    componentDidUpdate = async(prevProps) => {
+        if(prevProps !== this.props) {
+            await this.setState({display: this.props.display, project: this.props.project});
+        } 
+        else {
+            console.log(this.state)
+        }
     }
 
-    passPathUp = (tool,type) => {
-        this.props.pathFn(tool,type);
-    }
 }
 
 export default Project;

@@ -68,16 +68,19 @@ class Path extends React.Component {
         this.props.returnToCategoriesFn();
     }
 
-    categoryOnClick = () => {
-        console.log(this.props.category + ' clicked');
+    categoryOnClick = async() => {
+        await this.setState({subcategory: '', project: '', tool: ''})
+        this.props.returnToCategoryFn(this.state.category);
     }
 
-    subCategoryOnClick = () => {
-        console.log(this.props.subcategory + ' clicked');
+    subCategoryOnClick = async() => {
+        await this.setState({ project: '', tool: ''})
+        this.props.returnToSubCategoryFn(this.state.subcategory);
     }
 
-    projectOnClick = () => {
-        console.log(this.props.project + ' clicked');
+    projectOnClick = async() => {
+        await this.setState({ tool: ''})
+        this.props.returnToProjectFn(this.state.project);
     }
 
     updateState = async () => {

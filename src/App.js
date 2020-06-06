@@ -6,6 +6,8 @@ import ProjectList from './Project/projectList';
 import ProjectInfo from './Project/projectInfo';
 import SubCategoryList from './SubCategory/subCategoryList';
 import ToolList from './Tool/toolList';
+import ToolInfo from './Tool/toolInfo';
+import { async } from 'q';
 
 
 class App extends React.Component {
@@ -34,12 +36,13 @@ class App extends React.Component {
     return(
       <div>
         <Path category={this.state.category} subcategory={this.state.subcategory} project={this.state.project} tool={this.state.tool}
-          returnToCategoriesFn={this.returnToCategories} ></Path>
+          returnToCategoriesFn={this.returnToCategories} returnToCategoryFn={this.returnToCategory} returnToSubCategoryFn={this.returnToSubCategory} returnToProjectFn={this.returnToProject}></Path>
         <CategoryList onClickFn={this.categoryOnClick} categories={this.state.categories} display={this.state.categoriesDisplay}></CategoryList>
         <SubCategoryList onClickFn={this.subCategoryOnClick} subcategories={this.state.subcategories} display={this.state.subcategoriesDisplay}></SubCategoryList>
         <ProjectList onClickFn={this.projectOnClick} projects={this.state.projects} display={this.state.projectsDisplay}></ProjectList>
         <ProjectInfo project={this.state.project} display={this.state.projectDisplayInfo}></ProjectInfo>
         <ToolList onClickFn={this.toolOnClick} tools={this.state.tools} display={this.state.toolsDisplay}></ToolList>
+        <ToolInfo tool={this.state.tool} display={this.state.toolDisplayInfo}></ToolInfo>
       </div>
     )
   }
@@ -61,7 +64,7 @@ class App extends React.Component {
   categoryOnClick = async(category) => {
     let subCategories = this.determineSubcategories(category);
     console.log(subCategories);
-    await this.setState({category: category, categoriesDisplay: false, subcategories: subCategories, subcategoriesDisplay: true})
+    await this.setState({category, categoriesDisplay: false, subcategories: subCategories, subcategoriesDisplay: true})
     console.log(this.state);
   }
 
@@ -69,7 +72,7 @@ class App extends React.Component {
   // Unrenders Sub-Categories then renders Projects
   subCategoryOnClick = async(subcategory) => {
     let projects = this.determineProjects(subcategory);
-    await this.setState({subcategory: subcategory, subcategoriesDisplay: false, projects: projects, projectsDisplay: true})
+    await this.setState({subcategory, subcategoriesDisplay: false, projects: projects, projectsDisplay: true})
     console.log(this.state)
   }
 
@@ -80,12 +83,12 @@ class App extends React.Component {
     let tools = ['tool1','tool2']
     // determine tools
 
-    await this.setState({project: project, projectsDisplay: false, projectDisplayInfo: true, tools: tools, toolsDisplay: true})
+    await this.setState({project, projectsDisplay: false, projectDisplayInfo: true, tools: tools, toolsDisplay: true})
   }
 
 
   toolOnClick = async(tool) => {
-
+    await this.setState({tool, toolDisplayInfo: true, projectDisplayInfo: false, toolsDisplay: false})
   }
 
   determineSubcategories = (category) => {
@@ -153,6 +156,74 @@ class App extends React.Component {
         return ['CTproj1','proj2'];
       }
     }
+  }
+
+  returnToCategories = async() => {
+    await this.setState({
+      categories: ['Floor','Bath','Wall','Outdoor','Kitchen'],
+      categoriesDisplay: true,
+      category: '',
+      subcategories: [],
+      subcategoriesDisplay: false,
+      subcategory: '',
+      projects: [],
+      projectsDisplay: false,
+      project: '',
+      projectDisplayInfo: false,
+      tools: [],
+      toolsDisplay: false,
+      tool: '',
+      toolDisplayInfo: false
+    })
+    console.log(this.state)
+  }
+
+  returnToCategory = async(category) => {
+
+    let subcategories = this.determineSubcategories(category);
+    await this.setState({
+      subcategories,
+      subcategoriesDisplay: true,
+      subcategory: '',
+      projects: [],
+      projectsDisplay: false,
+      project: '',
+      projectDisplayInfo: false,
+      tools: [],
+      toolsDisplay: false,
+      tool: '',
+      toolDisplayInfo: false
+    })
+
+    console.log(this.state);
+  }
+
+  returnToSubCategory = async(subcategory) => {
+
+    let projects = this.determineProjects(subcategory);
+    await this.setState({
+      projects,
+      projectsDisplay: true,
+      project: '',
+      projectDisplayInfo: false,
+      tools: [],
+      toolsDisplay: false,
+      tool: '',
+      toolDisplayInfo: false
+    })
+
+    console.log(this.state);
+  }
+
+  returnToProject = async(project) => {
+    let tools = ['tool1','tool2']
+    await this.setState({
+      projectDisplayInfo: true,
+      tools,
+      toolsDisplay: true,
+      tool: '',
+      toolDisplayInfo: false
+    })
   }
 
 }

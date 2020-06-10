@@ -1,4 +1,5 @@
 import React from 'react';
+import './subCategory.css';
 
 class SubCategory extends React.Component {
 
@@ -15,8 +16,9 @@ class SubCategory extends React.Component {
 
         if(this.props.display) {
             return(
-                <div onClick={this.displayProjectsInSubCategory}>
-                    {this.state.subcategory}
+                <div className='subcategory' onClick={this.displayProjectsInSubCategory}>
+                    <div className='subcategory-name'>{this.state.subcategory}</div>
+                    <img className='subcategory-image' src='method-draw-image.svg' height='150px'></img>
                 </div>
             )
 

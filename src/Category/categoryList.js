@@ -17,7 +17,7 @@ class CategoryList extends React.Component {
         
         const { categories } = this.props;
         return(
-            <div className='categoryContainer'>
+            <div>
             {
                 categories.map((category,index) => {
                     return(

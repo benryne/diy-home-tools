@@ -1,4 +1,5 @@
 import React from 'react';
+import './path.css';
 
 class Path extends React.Component {
     constructor() {
@@ -14,47 +15,46 @@ class Path extends React.Component {
     render() {
         if(this.state.tool !== '') {
             return(
-                <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} >
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoriesOnClick}>Categories</div> >
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoryOnClick}> {this.state.category} ></div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.subCategoryOnClick}> {this.state.subcategory} ></div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.projectOnClick}> {this.state.project}</div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}}> > {this.state.tool}</div>
+                <div className='path'>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} ></div>
+                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory} ></div>
+                    <div className='path-element' onClick={this.projectOnClick}> {this.state.project} > </div>
+                    <div className='path-element'> {this.state.tool}</div>
                 </div>
             )
         }
         else if(this.state.project !== '') {
             return(
-                <div style={{display: "inline", fontSize: "32px", fontWeight: 700}}>
-                    
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoriesOnClick}>Categories</div> >
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoryOnClick}> {this.state.category} ></div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.subCategoryOnClick}> {this.state.subcategory} ></div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.projectOnClick}> {this.state.project}</div>
+                <div className='path'>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} ></div>
+                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory} ></div>
+                    <div className='path-element' onClick={this.projectOnClick}> {this.state.project}</div>
                 </div>
             )
         }
         else if(this.state.subcategory !== '') {
             return(
-                <div style={{display: "inline", fontSize: "32px", fontWeight: 700}}>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoriesOnClick}>Categories</div> >
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoryOnClick}> {this.state.category} ></div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.subCategoryOnClick}> {this.state.subcategory}</div>
+                <div className='path'>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} ></div>
+                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory}</div>
                 </div>
             )
         }
         else if(this.state.category !== '') {
             return(
-                <div style={{display: "inline", fontSize: "32px", fontWeight: 700}}>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoriesOnClick}>Categories</div> >
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoryOnClick}> {this.state.category}</div>
+                <div className='path'>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category}</div>
                 </div>
             )
         }
         else {
             return(
                 <div>
-                    <div style={{display: "inline", fontSize: "32px", fontWeight: 700}} onClick={this.categoriesOnClick}>Categories</div>
+                    <div className='path' onClick={this.categoriesOnClick}>Categories</div>
                 </div>
             )
         }

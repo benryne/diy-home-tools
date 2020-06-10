@@ -1,4 +1,5 @@
 import React from 'react';
+import './project.css';
 
 class ProjectInfo extends React.Component {
 
@@ -14,7 +15,7 @@ class ProjectInfo extends React.Component {
     render() {
         if(this.state.display) {
             return(
-                <div>{this.state.project}: ProjectInfo</div>
+                <div className='project-info'>{this.state.project}: ProjectInfo</div>
             )
         }
         else {

@@ -1,6 +1,5 @@
 import React from 'react';
-import SubCategory from '../SubCategory/subCategory';
-import { async } from 'q';
+import './category.css';
 
 class Category extends React.Component {
 
@@ -16,7 +15,10 @@ class Category extends React.Component {
 
         if (this.props.display) {
             return(
-                <div onClick={this.CategoryOnClick}><h2>{this.state.category}</h2></div>
+                <div className='category' onClick={this.CategoryOnClick}>
+                    <div className='category-name'>{this.state.category}</div>
+                    <img className='category-image' src='method-draw-image.svg' height='150px'></img>
+                </div>
             )
         }
         else 

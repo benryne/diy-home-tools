@@ -1,7 +1,5 @@
 import React from 'react';
-import Tool from '../Tool/tool';
-import { async } from 'q';
-
+import './project.css';
 
 class Project extends React.Component {
 
@@ -16,8 +14,10 @@ class Project extends React.Component {
     render() {
         if(this.state.display) {
             return(
-                <div onClick={this.displayProjectInfo}>
-                    {this.state.project}
+                <div className='project' onClick={this.displayProjectInfo}>
+                    <div className='project-name'>{this.state.project}</div>
+                    <img className='project-image' src='method-draw-image.svg' height='150px'></img>
+                    
                 </div>
             )
 

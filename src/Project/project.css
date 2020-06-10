@@ -1,0 +1,25 @@
+.project {
+    justify-content: center;
+    display: inline-flex;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
+.project-name {
+    padding-top: 10px;
+    font-weight: 700;
+    justify-content: center;
+    position: absolute;
+}
+
+.project-image {
+    margin: auto;
+}
+
+.project-info {
+        padding-bottom: 50px;
+}

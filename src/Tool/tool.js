@@ -1,4 +1,5 @@
 import React from 'react';
+import './tool.css';
 
 class Tool extends React.Component {
 
@@ -13,7 +14,12 @@ class Tool extends React.Component {
 
     render() {
         if(this.props.display) {
-            return(<div onClick={this.toolOnClick}>{this.props.tool}</div>)
+            return(
+                <div className='tool' onClick={this.toolOnClick}>
+                    <div className='tool-name'>{this.props.tool}</div>
+                    <img className='tool-image' src='method-draw-image.svg' height='150px'></img>
+                </div>
+            )
         }
         else
             return null;

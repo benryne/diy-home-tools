@@ -1,5 +1,7 @@
 import React from 'react';
 import Project from './project';
+import Grid from '@material-ui/core/Grid';
+
 
 class ProjectList extends React.Component {
 
@@ -13,18 +15,20 @@ class ProjectList extends React.Component {
 
     render() {
         
-        if(this.state.projects !== '') {
+        if(this.state.projects !== '' && this.state.display) {
             const projects = this.state.projects;
             return(
-                <div className='categoryContainer'>
+                <Grid container spacing={2}>
                 {
                     projects.map((project,index) => {
                         return(
-                            <Project onClickFn={this.DisplayProjectInfoAndTools} key={index} project={project} display={this.state.display}></Project>
+                            <Grid item xs={6} sm={4} md={3} lg={2}>
+                                <Project onClickFn={this.DisplayProjectInfoAndTools} key={index} project={project} display={this.state.display}></Project>
+                            </Grid>
                         )
                     })
                 }
-                </div>
+                </Grid>
             )
         }
         else 

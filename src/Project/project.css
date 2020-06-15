@@ -1,11 +1,8 @@
 .project {
+    background-color: #f0f8ff;
     justify-content: center;
-    display: inline-flex;
-    margin-right: 50px;
-    margin-bottom: 50px;
-    width: 200px;
-    height: 200px;
-    border: 2px solid black;
+    text-align: center;
+    border: 1px solid #5e5e5e;
     border-radius: 50px;
 }
 
@@ -13,7 +10,6 @@
     padding-top: 10px;
     font-weight: 700;
     justify-content: center;
-    position: absolute;
 }
 
 .project-image {
@@ -21,5 +17,5 @@
 }
 
 .project-info {
-        padding-bottom: 50px;
+    padding-bottom: 50px;
 }

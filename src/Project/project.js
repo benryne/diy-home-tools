@@ -17,7 +17,6 @@ class Project extends React.Component {
                 <div className='project' onClick={this.displayProjectInfo}>
                     <div className='project-name'>{this.state.project}</div>
                     <img className='project-image' src='method-draw-image.svg' height='150px'></img>
-                    
                 </div>
             )
 

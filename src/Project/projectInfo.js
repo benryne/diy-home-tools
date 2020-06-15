@@ -1,5 +1,6 @@
 import React from 'react';
 import './project.css';
+import Grid from '@material-ui/core/Grid';
 
 class ProjectInfo extends React.Component {
 

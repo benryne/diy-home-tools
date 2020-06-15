@@ -8,6 +8,7 @@ import SubCategoryList from './SubCategory/subCategoryList';
 import ToolList from './Tool/toolList';
 import ToolInfo from './Tool/toolInfo';
 import Header from './Header/header';
+import Container from '@material-ui/core/Container';
 
 class App extends React.Component {
   
@@ -33,18 +34,18 @@ class App extends React.Component {
 
   render() {
     return(
-      <div>
-        <Header></Header>
-        <Path category={this.state.category} subcategory={this.state.subcategory} project={this.state.project} tool={this.state.tool}
-          returnToCategoriesFn={this.returnToCategories} returnToCategoryFn={this.returnToCategory} returnToSubCategoryFn={this.returnToSubCategory} returnToProjectFn={this.returnToProject}></Path>
-        <div className='content-container'>
+      <div className='app'>
+        <Container>
+          <Header></Header>
+          <Path category={this.state.category} subcategory={this.state.subcategory} project={this.state.project} tool={this.state.tool}
+            returnToCategoriesFn={this.returnToCategories} returnToCategoryFn={this.returnToCategory} returnToSubCategoryFn={this.returnToSubCategory} returnToProjectFn={this.returnToProject}></Path>
           <CategoryList onClickFn={this.categoryOnClick} categories={this.state.categories} display={this.state.categoriesDisplay}></CategoryList>
           <SubCategoryList onClickFn={this.subCategoryOnClick} subcategories={this.state.subcategories} display={this.state.subcategoriesDisplay}></SubCategoryList>
           <ProjectList onClickFn={this.projectOnClick} projects={this.state.projects} display={this.state.projectsDisplay}></ProjectList>
           <ProjectInfo project={this.state.project} display={this.state.projectDisplayInfo}></ProjectInfo>
           <ToolList onClickFn={this.toolOnClick} tools={this.state.tools} display={this.state.toolsDisplay}></ToolList>
           <ToolInfo tool={this.state.tool} display={this.state.toolDisplayInfo}></ToolInfo>
-        </div>
+        </Container>
       </div>
     )
   }

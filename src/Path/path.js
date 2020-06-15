@@ -16,10 +16,10 @@ class Path extends React.Component {
         if(this.state.tool !== '') {
             return(
                 <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
-                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} ></div>
-                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory} ></div>
-                    <div className='path-element' onClick={this.projectOnClick}> {this.state.project} > </div>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} /</div>
+                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory} /</div>
+                    <div className='path-element' onClick={this.projectOnClick}> {this.state.project} / </div>
                     <div className='path-element'> {this.state.tool}</div>
                 </div>
             )
@@ -27,9 +27,9 @@ class Path extends React.Component {
         else if(this.state.project !== '') {
             return(
                 <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
-                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} ></div>
-                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory} ></div>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} /</div>
+                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory} /</div>
                     <div className='path-element' onClick={this.projectOnClick}> {this.state.project}</div>
                 </div>
             )
@@ -37,8 +37,8 @@ class Path extends React.Component {
         else if(this.state.subcategory !== '') {
             return(
                 <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
-                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} ></div>
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
+                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category} /</div>
                     <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory}</div>
                 </div>
             )
@@ -46,7 +46,7 @@ class Path extends React.Component {
         else if(this.state.category !== '') {
             return(
                 <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> >
+                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
                     <div className='path-element' onClick={this.categoryOnClick}> {this.state.category}</div>
                 </div>
             )

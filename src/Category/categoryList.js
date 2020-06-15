@@ -1,6 +1,6 @@
 import React from 'react';
 import Category from './category';
-
+import Grid from '@material-ui/core/Grid';
 
 class CategoryList extends React.Component {
 
@@ -16,17 +16,21 @@ class CategoryList extends React.Component {
     render() {
         
         const { categories } = this.props;
-        return(
-            <div>
-            {
-                categories.map((category,index) => {
-                    return(
-                        <Category onClickFn={this.DislaySubCategories} key={index} category={category} display={this.state.display}></Category>
-                    )
-                })
-            }
-            </div>
-        )
+        if(this.state.display) {
+            return(
+                <Grid container spacing={2}>
+                {
+                    categories.map((category,index) => {
+                        return(
+                            <Category onClickFn={this.DislaySubCategories} key={index} category={category} display={this.state.display}></Category>
+                        )
+                    })
+                }
+                </Grid>
+            )
+        }
+        else 
+            return null;
     }
 
     DislaySubCategories = (category) => {

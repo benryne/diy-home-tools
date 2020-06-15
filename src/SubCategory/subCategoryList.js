@@ -1,5 +1,6 @@
 import React from 'react';
-import SubCategory from './subCategory'
+import SubCategory from './subCategory';
+import Grid from '@material-ui/core/Grid';
 
 class SubCategoryList extends React.Component {
 
@@ -13,10 +14,10 @@ class SubCategoryList extends React.Component {
 
     render() {
         
-        if(this.state.subcategories !== '') {
+        if(this.state.subcategories !== '' && this.state.display) {
             const subcategories = this.state.subcategories;
             return(
-                <div className='categoryContainer'>
+                <Grid container spacing={2}>
                 {
                     subcategories.map((subcategory,index) => {
                         return(
@@ -24,7 +25,7 @@ class SubCategoryList extends React.Component {
                         )
                     })
                 }
-                </div>
+                </Grid>
             )
         }
         else 

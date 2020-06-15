@@ -22,7 +22,9 @@ class CategoryList extends React.Component {
                 {
                     categories.map((category,index) => {
                         return(
-                            <Category onClickFn={this.DislaySubCategories} key={index} category={category} display={this.state.display}></Category>
+                            <Grid item xs={6} sm={4} md={3} lg={2}>
+                                <Category onClickFn={this.DislaySubCategories} key={index} category={category} display={this.state.display}></Category>
+                            </Grid>
                         )
                     })
                 }

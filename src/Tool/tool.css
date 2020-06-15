@@ -1,11 +1,8 @@
 .tool {
+    background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
     justify-content: center;
-    display: inline-flex;
-    margin-right: 50px;
-    margin-bottom: 50px;
-    width: 200px;
-    height: 200px;
-    border: 2px solid black;
+    text-align: center;
+    border: 0px solid #5e5e5e;
     border-radius: 50px;
 }
 
@@ -13,9 +10,34 @@
     padding-top: 10px;
     font-weight: 700;
     justify-content: center;
-    position: absolute;
+    color: #282828;
 }
 
 .tool-image {
     margin: auto;
+}
+
+.tool-info {
+    background: -webkit-linear-gradient(45deg,#FE6B8B 30%, #FF8E53 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: justify;
+}
+
+.tool-link {
+    background: -webkit-linear-gradient(45deg,#FE6B8B 30%, #FF8E53 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    position: relative;
+}
+
+.tool-link:hover::after {
+    content: "";
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: -webkit-linear-gradient(#FE6B8B , #FF8E53);
 }

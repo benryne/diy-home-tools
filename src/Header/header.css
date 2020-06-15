@@ -1,5 +1,7 @@
 .Header {
-
+    background: -webkit-linear-gradient(#FE6B8B , #FF8E53);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-align: Left;
     font-size: 30px;
     padding-top: 50px;

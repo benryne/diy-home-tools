@@ -42,8 +42,7 @@ class App extends React.Component {
           <CategoryList onClickFn={this.categoryOnClick} categories={this.state.categories} display={this.state.categoriesDisplay}></CategoryList>
           <SubCategoryList onClickFn={this.subCategoryOnClick} subcategories={this.state.subcategories} display={this.state.subcategoriesDisplay}></SubCategoryList>
           <ProjectList onClickFn={this.projectOnClick} projects={this.state.projects} display={this.state.projectsDisplay}></ProjectList>
-          <ProjectInfo project={this.state.project} display={this.state.projectDisplayInfo}></ProjectInfo>
-          <ToolList onClickFn={this.toolOnClick} tools={this.state.tools} display={this.state.toolsDisplay}></ToolList>
+          <ToolList onClickFn={this.toolOnClick} tools={this.state.tools} display={this.state.toolsDisplay} project={this.state.project}></ToolList>
           <ToolInfo tool={this.state.tool} display={this.state.toolDisplayInfo}></ToolInfo>
         </Container>
       </div>
@@ -83,7 +82,7 @@ class App extends React.Component {
   // Unrenders Projects then renders info of Project clicked and tools 
   projectOnClick = async(project) => {
 
-    let tools = ['tool1','tool2']
+    let tools = ['tool1','tool2','tool3','tool4']
     // determine tools
 
     await this.setState({project, projectsDisplay: false, projectDisplayInfo: true, tools: tools, toolsDisplay: true})
@@ -219,7 +218,7 @@ class App extends React.Component {
   }
 
   returnToProject = async(project) => {
-    let tools = ['tool1','tool2']
+    let tools = ['tool1','tool2','tool3','tool4']
     await this.setState({
       projectDisplayInfo: true,
       tools,

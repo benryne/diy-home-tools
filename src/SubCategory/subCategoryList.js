@@ -21,7 +21,9 @@ class SubCategoryList extends React.Component {
                 {
                     subcategories.map((subcategory,index) => {
                         return(
-                            <SubCategory onClickFn={this.DisplayProjects} key={index} subcategory={subcategory} display={this.state.display}></SubCategory>
+                            <Grid item xs={6} sm={4} md={3} lg={2}>
+                                <SubCategory onClickFn={this.DisplayProjects} key={index} subcategory={subcategory} display={this.state.display}></SubCategory>
+                            </Grid>
                         )
                     })
                 }

@@ -1,13 +1,8 @@
 .category {
-    background-color: #f0f8ff;
+    background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
     justify-content: center;
-    /* display: inline-flex;
-    margin-right: 60px;
-    margin-bottom: 60px;
-    width: 175px;
-    height: 200px; */
     text-align: center;
-    border: 1px solid #5e5e5e;
+    border: 0px solid #5e5e5e;
     border-radius: 50px;
 }
 
@@ -15,6 +10,7 @@
     padding-top: 10px;
     font-weight: 700;
     justify-content: center;
+    color: #282828;
 }
 
 .category-image {

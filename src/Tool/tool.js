@@ -1,5 +1,6 @@
 import React from 'react';
 import './tool.css';
+import Grid from '@material-ui/core/Grid';
 
 class Tool extends React.Component {
 
@@ -15,10 +16,10 @@ class Tool extends React.Component {
     render() {
         if(this.props.display) {
             return(
-                <div className='tool' onClick={this.toolOnClick}>
-                    <div className='tool-name'>{this.props.tool}</div>
-                    <img className='tool-image' src='method-draw-image.svg' height='150px'></img>
-                </div>
+                    <div className='tool' onClick={this.toolOnClick}>
+                        <div className='tool-name'>{this.props.tool}</div>
+                        <img className='tool-image' src='method-draw-image.svg' height='150px'></img>
+                    </div>
             )
         }
         else

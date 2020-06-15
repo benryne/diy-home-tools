@@ -16,12 +16,10 @@ class Category extends React.Component {
 
         if (this.props.display) {
             return(
-                <Grid item xs={6} sm={4} md={3} lg={2}>
                     <div className='category' onClick={this.CategoryOnClick}>
                         <div className='category-name'>{this.state.category}</div>
                         <img className='category-image' src='method-draw-image.svg' height='150px'></img>
                     </div>
-                </Grid>
             )
         }
         else 

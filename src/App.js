@@ -15,7 +15,7 @@ class App extends React.Component {
   constructor() {
     super(); 
     this.state = {  
-      categories: ['Floor','Bath','Wall','Outdoor','Kitchen'],
+      categories: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
       categoriesDisplay: true,
       category: '',
       subcategories: [],
@@ -95,74 +95,108 @@ class App extends React.Component {
 
   determineSubcategories = (category) => {
     if(category  === 'Floor') {
-      return ['Wood','Carpet'];
+      return ['Wood','Carpet','Tile'];
     }
-    else if(category === 'Bath') {
+    else if(category === 'Bathroom') {
       return ['Sink','Bathtub','Shower'];
     }
     else if(category === 'Wall') {
-      return ['Drywall','Hanging'];
+      return ['Drywall','Hanging', 'Painting'];
     }
     else if(category === 'Outdoor') {
-      return ['Patio','Fire Pit'];
+      return ['Patio','Fire Pit','Exterior'];
     }
-    else {
+    else if(category === 'Kitchen') {
       return ['Sink','Cabinets','Counter Tops'];
     }    
+    else if(category === 'Roof') {
+      return ['Metal Roof', 'Vinyl Roof', 'Clay Tile', 'Concrete Tile']
+    }
+    else {
+      return ['Indoor Lighting', 'Outdoor Lighting']
+    }
   }
 
   determineProjects = (subcategory) => {
     if(this.state.category === 'Floor') {
       if(subcategory === 'Wood') {
-        return ['Wproj1','proj2'];
+        return ['Ripping Up Floors','Laying Floors'];
       }
       else {
-        return ['Cproj1','proj2'];
+        return ['Ripping Up Carpet','Laying Carpet'];
       }
     }
     else if(this.state.category === 'Bath') {
       if(subcategory === 'Sink') {
-        return ['Sproj1','proj2'];
+        return ['Adding Plumbing','Attaching Vanity'];
       }
       else if(subcategory === 'Bathtub') {
-        return ['Bproj1','proj2'];
+        return ['Adding Drain','Inserting Tub'];
       }
       else {
-        return ['Sproj1','proj2'];
+        return ['Tiling Wall','Tiling Floor', 'Adding Drain', 'Attaching Insert'];
       }
     }
     else if(this.state.category === 'Wall') {
       if(subcategory === 'Drywall') {
-        return ['Dproj1','proj2'];
+        return ['Patching','Adding Panel','Insulation'];
+      }
+      if(subcategory === 'Hanging') {
+        return ['Hanging Painting','Adding Panel'];
       }
       else {
-        return ['Hproj1','proj2'];
+        return ['Painting Wall'];
       }
     }
     else if(this.state.category === 'Outdoor') {
       if(subcategory === 'Patio') {
-        return ['Pproj1','proj2'];
+        return ['Wood Patio','Paver Patio'];
+      }
+      if(subcategory === 'Fire Pit') {
+        return ['Inground Pit','Paver Pit'];
       }
       else {
-        return ['Fproj1','proj2'];
+        return ['Siding','Painting','Stucco'];
+      }
+    }
+    else if(this.state.category === 'Kitchen') {
+      if(subcategory === 'Sink') {
+        return ['Installing Sink','Fixing Sink Plumbing'];
+      }
+      if(subcategory === 'Cabinets') {
+        return ['Painting Cabinets','Installing Cabinets', 'Removing Cabinets'];
+      }
+      else {
+        return ['Siding','Painting','Stucco'];
+      }
+    }
+    else if(this.state.category === 'Roof') {
+      if(subcategory === 'Metal Roof') {
+        return ['Patching Roof','Replacing Roof'];
+      }
+      if(subcategory === 'Vinyl Roof') {
+        return ['Patching Roof','Replacing Roof'];
+      }
+      if(subcategory === 'Clay Tile') {
+        return ['Patching Roof','Replacing Roof'];
+      }
+      else {
+        return ['Patching Roof','Replacing Roof'];
       }
     }
     else {
-      if(subcategory === 'Sink') {
-        return ['Sproj1','proj2'];
-      }
-      else if( subcategory === 'Cabinets') {
-        return ['Cproj1','proj2'];
+      if(subcategory === 'Indoor Lighting') {
+        return ['Ceiling Fan','Ceiling Light'];
       }
       else {
-        return ['CTproj1','proj2'];
+        return ['Porch Lighting','Flood Light'];
       }
+      
     }
   }
 
   returnToCategories = async() => {
     await this.setState({
-      categories: ['Floor','Bath','Wall','Outdoor','Kitchen'],
       categoriesDisplay: true,
       category: '',
       subcategories: [],

@@ -62,9 +62,7 @@ class Path extends React.Component {
     }
 
     categoriesOnClick =  async () => {
-        console.log(this.state);
         await this.setState({category: '', subcategory: '', project: '', tool: ''})
-        console.log(this.state);
         this.props.returnToCategoriesFn();
     }
 
@@ -90,7 +88,6 @@ class Path extends React.Component {
             project: this.props.project,
             tool: this.props.tool
         })
-        console.log(this.state)
     }
 
     componentDidUpdate(prevProps) {

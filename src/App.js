@@ -1,13 +1,8 @@
 import React from 'react';
 import './App.css';
-import CategoryList from './Category/categoryList';
 import Path from './Path/path';
-import ProjectList from './Project/projectList';
-import ProjectInfo from './Project/projectInfo';
-import SubCategoryList from './SubCategory/subCategoryList';
-import ToolList from './Tool/toolList';
-import ToolInfo from './Tool/toolInfo';
 import Header from './Header/header';
+import TileList from './tileList';
 import Container from '@material-ui/core/Container';
 
 class App extends React.Component {
@@ -16,19 +11,18 @@ class App extends React.Component {
     super(); 
     this.state = {  
       categories: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-      categoriesDisplay: true,
       category: '',
       subcategories: [],
-      subcategoriesDisplay: false,
       subcategory: '',
       projects: [],
-      projectsDisplay: false,
       project: '',
-      projectDisplayInfo: false,
       tools: [],
-      toolsDisplay: false,
       tool: '',
-      toolDisplayInfo: false
+      list: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
+      type: 'categories',
+      projectInfo: '',
+      toolInfo: '',
+      currentInfo: ''
     };
   }
 
@@ -39,16 +33,46 @@ class App extends React.Component {
           <Header></Header>
           <Path category={this.state.category} subcategory={this.state.subcategory} project={this.state.project} tool={this.state.tool}
             returnToCategoriesFn={this.returnToCategories} returnToCategoryFn={this.returnToCategory} returnToSubCategoryFn={this.returnToSubCategory} returnToProjectFn={this.returnToProject}></Path>
-          <CategoryList onClickFn={this.categoryOnClick} categories={this.state.categories} display={this.state.categoriesDisplay}></CategoryList>
-          <SubCategoryList onClickFn={this.subCategoryOnClick} subcategories={this.state.subcategories} display={this.state.subcategoriesDisplay}></SubCategoryList>
-          <ProjectList onClickFn={this.projectOnClick} projects={this.state.projects} display={this.state.projectsDisplay}></ProjectList>
-          <ToolList onClickFn={this.toolOnClick} tools={this.state.tools} display={this.state.toolsDisplay} project={this.state.project}></ToolList>
-          <ToolInfo tool={this.state.tool} display={this.state.toolDisplayInfo}></ToolInfo>
+          <TileList onClickFn={this.tileOnClick} type={this.state.type} list={this.state.list} info={this.state.currentInfo}></TileList>
         </Container>
       </div>
     )
   }
 
+
+  determineProjectInfo = (tile) => {
+    return tile + ': Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac risus malesuada, varius purus at, posuere justo. Pellentesque sit amet tortor erat. Vivamus pharetra augue a elit elementum, sagittis semper ex cursus. Nunc interdum, ligula sed consectetur mattis, erat libero semper enim, ac auctor tellus tellus vel orci. Vestibulum vel quam nulla. Nunc rutrum, nisi sit amet bibendum sollicitudin, quam neque mattis purus, ut consequat nibh arcu sit amet purus. Praesent quis fringilla sem, at rhoncus lectus. Sed rutrum interdum elit, hendrerit tincidunt nisi pretium vitae. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus cursus sit amet eros eu sagittis.';
+  }
+  
+  determineToolInfo = (tile) => {
+    return tile + ': Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac risus malesuada, varius purus at, posuere justo. Pellentesque sit amet tortor erat. Vivamus pharetra augue a elit elementum, sagittis semper ex cursus. Nunc interdum, ligula sed consectetur mattis, erat libero semper enim, ac auctor tellus tellus vel orci. Vestibulum vel quam nulla. Nunc rutrum, nisi sit amet bibendum sollicitudin, quam neque mattis purus, ut consequat nibh arcu sit amet purus. Praesent quis fringilla sem, at rhoncus lectus. Sed rutrum interdum elit, hendrerit tincidunt nisi pretium vitae. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus cursus sit amet eros eu sagittis.';
+  }
+
+  tileOnClick = async (tile) => {
+    
+    if(this.state.type === 'categories') {
+      let subcategories = this.determineSubcategories(tile);
+      console.log(subcategories)
+      await this.setState({category: tile, subcategories: subcategories, list: subcategories, type: 'subcategories'})
+      
+    }
+    else if(this.state.type === 'subcategories' ) {
+      let projects = this.determineProjects(tile);
+      console.log(this.state.subcategories)
+      await this.setState({subcategory:tile, projects: projects, list: projects, type: 'projects'})
+    }
+    else if(this.state.type === 'projects') {
+      let tools = this.determineTools(tile);
+      let projectInfo = this.determineProjectInfo(tile); 
+      await this.setState({project: tile,tools: tools, list: tools, type: 'tools', projectInfo, currentInfo: projectInfo})
+    }
+    else if(this.state.type === 'tools' ) {
+      let toolInfo = this.determineToolInfo(tile);
+      console.log('tool info' + toolInfo);
+      await this.setState({tool: tile, list: '', type: 'tool', toolInfo, currentInfo: toolInfo})
+    }
+
+  }
 
   returnToCategories = async () => {
     const newCategories = this.state.categories.map(category => {
@@ -61,43 +85,11 @@ class App extends React.Component {
     await this.setState({categories: newCategories, category: '', subcategory: '', project: '', tool: ''});
   }
 
-  // Determines Sub-Categories List using the Category clicked
-  // Unrenders Categories then renders Sub-Categories
-  categoryOnClick = async(category) => {
-    let subCategories = this.determineSubcategories(category);
-    console.log(subCategories);
-    await this.setState({category, categoriesDisplay: false, subcategories: subCategories, subcategoriesDisplay: true})
-    console.log(this.state);
-  }
-
-  // Determines Project List using the Sub-Category clicked
-  // Unrenders Sub-Categories then renders Projects
-  subCategoryOnClick = async(subcategory) => {
-    let projects = this.determineProjects(subcategory);
-    await this.setState({subcategory, subcategoriesDisplay: false, projects: projects, projectsDisplay: true})
-    console.log(this.state)
-  }
-
-  // Determines Tool List using the Project clicked
-  // Unrenders Projects then renders info of Project clicked and tools 
-  projectOnClick = async(project) => {
-
-    let tools = ['tool1','tool2','tool3','tool4']
-    // determine tools
-
-    await this.setState({project, projectsDisplay: false, projectDisplayInfo: true, tools: tools, toolsDisplay: true})
-  }
-
-
-  toolOnClick = async(tool) => {
-    await this.setState({tool, toolDisplayInfo: true, projectDisplayInfo: false, toolsDisplay: false})
-  }
-
   determineSubcategories = (category) => {
     if(category  === 'Floor') {
       return ['Wood','Carpet','Tile'];
     }
-    else if(category === 'Bathroom') {
+    else if(category === 'Bath') {
       return ['Sink','Bathtub','Shower'];
     }
     else if(category === 'Wall') {
@@ -195,23 +187,25 @@ class App extends React.Component {
     }
   }
 
+  determineTools = (project) => {
+    return ['tool1','tool2','tool3'];
+  }
+
   returnToCategories = async() => {
     await this.setState({
-      categoriesDisplay: true,
       category: '',
       subcategories: [],
-      subcategoriesDisplay: false,
       subcategory: '',
       projects: [],
-      projectsDisplay: false,
       project: '',
-      projectDisplayInfo: false,
       tools: [],
-      toolsDisplay: false,
       tool: '',
-      toolDisplayInfo: false
+      list: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
+      type: 'categories',
+      projectInfo: '',
+      toolInfo: '',
+      currentInfo: ''
     })
-    console.log(this.state)
   }
 
   returnToCategory = async(category) => {
@@ -219,19 +213,18 @@ class App extends React.Component {
     let subcategories = this.determineSubcategories(category);
     await this.setState({
       subcategories,
-      subcategoriesDisplay: true,
       subcategory: '',
       projects: [],
-      projectsDisplay: false,
       project: '',
-      projectDisplayInfo: false,
       tools: [],
-      toolsDisplay: false,
       tool: '',
-      toolDisplayInfo: false
+      list: subcategories,
+      type: 'subcategories',
+      projectInfo: '',
+      toolInfo: '',
+      currentInfo: ''
     })
 
-    console.log(this.state);
   }
 
   returnToSubCategory = async(subcategory) => {
@@ -239,26 +232,27 @@ class App extends React.Component {
     let projects = this.determineProjects(subcategory);
     await this.setState({
       projects,
-      projectsDisplay: true,
       project: '',
-      projectDisplayInfo: false,
       tools: [],
-      toolsDisplay: false,
       tool: '',
-      toolDisplayInfo: false
+      list: projects,
+      type: 'projects',
+      projectInfo: '',
+      toolInfo: '',
+      currentInfo: ''
     })
 
-    console.log(this.state);
   }
 
   returnToProject = async(project) => {
-    let tools = ['tool1','tool2','tool3','tool4']
+    let tools = ['tool1','tool2','tool3',]
     await this.setState({
-      projectDisplayInfo: true,
-      tools,
-      toolsDisplay: true,
+      tools: tools,
       tool: '',
-      toolDisplayInfo: false
+      list: tools,
+      type: 'tools',
+      toolInfo: '',
+      currentInfo: this.state.projectInfo
     })
   }
 

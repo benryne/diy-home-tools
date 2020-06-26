@@ -30,7 +30,7 @@ class App extends React.Component {
         <Container>
           <Header></Header>
           <Path type={this.state.type} tile={this.state.tileClicked} returnToFn={this.returnToFn} ></Path>
-          <TileList onClickFn={this.tileOnClick} type={this.state.type} list={this.state.list} info={this.state.currentInfo}></TileList>
+          <TileList onClickFn={this.tileOnClick} type={this.state.type} list={this.state.list} info={this.state.info}></TileList>
           <TileGenerator setTileDataFn={this.setTileState} type={this.state.type} tile={this.state.tileClicked}
             category={this.state.category} subcategory={this.state.subcategory} project={this.state.project}></TileGenerator>
           {/* <ReturnTileState></ReturnTileState> */}

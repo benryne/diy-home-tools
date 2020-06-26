@@ -15,7 +15,6 @@ class Tile extends React.Component {
 
 
         // if(this.props.display) {
-            console.log(this.props);
             return(
                     <div className='tile' onClick={this.displayTileInfo}>
                         <div className='tile-name'>{this.state.tile}</div>
@@ -30,7 +29,6 @@ class Tile extends React.Component {
 
     displayTileInfo = () => {
         // await this.setState({display: false});
-        console.log('passing up' + this.state.tile)
         this.props.onClickFn(this.state.tile);
 
     }

@@ -5,7 +5,6 @@ import Header from './Header/header';
 import TileList from './tileList';
 import Container from '@material-ui/core/Container';
 import TileGenerator from './tileGenerator';
-import { async } from 'q';
 
 class App extends React.Component {
   
@@ -33,15 +32,10 @@ class App extends React.Component {
           <TileList onClickFn={this.tileOnClick} type={this.state.type} list={this.state.list} info={this.state.info}></TileList>
           <TileGenerator setTileDataFn={this.setTileState} type={this.state.type} tile={this.state.tileClicked}
             category={this.state.category} subcategory={this.state.subcategory} project={this.state.project}></TileGenerator>
-          {/* <ReturnTileState></ReturnTileState> */}
         </Container>
       </div>
     )
   }
-
-  // returnTofn = async (tile,type) => {
-  //   await
-  // }
 
   setTileState = async (list,type,info) => {
     await this.setState({list, type, info})
@@ -63,65 +57,8 @@ class App extends React.Component {
 
   }
 
-returnToFn = async (stateObject) => {
-
-  await this.setState(stateObject)
-
-}
-
-  returnToCategories = async(tile) => {
-    await this.setState({
-      category: '',
-      subcategory: '',
-      projects: [],
-      project: '',
-      tools: [],
-      tool: '',
-      list: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-      type: 'categories',
-      tileClicked: '',
-      info: ''
-    })
-  }
-
-  returnToSubcategories = async(tile) => {
-
-    await this.setState({
-      subcategory: '',
-      project: '',
-      tool: '',
-      list: '',
-      type: 'subcategories',
-      tileClicked: tile,
-      info: ''
-    })
-
-  }
-
-  returnToProjects = async(tile) => {
-
-    await this.setState({
-      project: '',
-      tool: '',
-      list: '',
-      type: 'projects',
-      tileClicked: tile,
-      info: ''
-    })
-
-    console.log(this.state);
-
-  }
-
-  returnToTools = async(tile) => {
-    await this.setState({
-      tool: '',
-      list: '',
-      type: 'tools',
-      tileClicked: tile,
-      info: ''
-
-    })
+  returnToFn = async (stateObject) => {
+    await this.setState(stateObject)
   }
 
 }

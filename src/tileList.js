@@ -2,7 +2,6 @@ import React from 'react';
 import Tile from './tile';
 import Grid from '@material-ui/core/Grid';
 
-
 class TileList extends React.Component {
 
     constructor(props) {
@@ -17,7 +16,6 @@ class TileList extends React.Component {
     render() {
         
         if(this.state.list !== '') {
-            console.log(this.state.list);
             const tiles = this.state.list;
             const hasInfo = this.state.info;
             return(
@@ -60,7 +58,6 @@ class TileList extends React.Component {
         if(prevProps !== this.props) {
             await this.setState({list: this.props.list, type: this.props.type, info: this.props.info});
         } 
-        // console.log(this.state)
     }
 
 }

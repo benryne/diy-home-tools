@@ -1,158 +1,104 @@
 import React from 'react';
 import './path.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { set,reset } from '../Actions';
+import TileGenerator from '../Generators/tileGenerator';
+import InfoGenerator from '../Generators/infoGenerator';
 
-class Path extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            category: '',
-            subcategory: '',
-            project: '',
-            tool: ''
-        };
+
+function Path() {
+
+    const dispatch = useDispatch();
+    const category = useSelector(state => state.category);
+    const subcategory = useSelector(state => state.subcategory);
+    const project = useSelector(state => state.project);
+    const tool = useSelector(state => state.tool);
+
+    const categoriesOnClick = () => {
+        dispatch(reset('category'));
+        dispatch(reset('subcategory'));
+        dispatch(reset('project'));
+        dispatch(reset('tool'));
+        dispatch(reset('tiles'));
+        dispatch(reset('info'));
+        dispatch(set('tile_type','categories'));
     }
 
-    render() {
-        if(this.state.tool !== '') {
-            return(
-                <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
-                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category}</div> /
-                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory}</div> /
-                    <div className='path-element' onClick={this.projectOnClick}> {this.state.project}</div> /
-                    <div className='path-element'> {this.state.tool}</div>
-                </div>
-            )
-        }
-        else if(this.state.project !== '') {
-            return(
-                <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
-                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category}</div> /
-                    <div className='path-element' onClick={this.subCategoryOnClick}> {this.state.subcategory}</div> /
-                    <div className='path-element'> {this.state.project}</div>
-                </div>
-            )
-        }
-        else if(this.state.subcategory !== '') {
-            return(
-                <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
-                    <div className='path-element' onClick={this.categoryOnClick}> {this.state.category}</div> /
-                    <div className='path-element'> {this.state.subcategory}</div>
-                </div>
-            )
-        }
-        else if(this.state.category !== '') {
-            return(
-                <div className='path'>
-                    <div className='path-element' onClick={this.categoriesOnClick}>Categories</div> /
-                    <div className='path-element'> {this.state.category}</div>
-                </div>
-            )
-        }
-        else {
-            return(
-                <div>
-                    <div className='path'>Categories</div>
-                </div>
-            )
-        }
-
+    const categoryOnClick = () => {
+        const tiles = TileGenerator('categories',category,category,'','');
+        dispatch(reset('subcategory'));
+        dispatch(reset('project'));
+        dispatch(reset('tool'));
+        dispatch(reset('info'));
+        dispatch(set('tiles',tiles));
+        dispatch(set('tile_type','subcategories'));
     }
 
-    categoriesOnClick =  async () => {
-        
-        await this.setState({category: '', subcategory: '', project: '', tool: ''})
-        this.props.returnToFn({  
-            categories: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-            category: '',
-            subcategory: '',
-            project: '',
-            tool: '',
-            list: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-            type: 'categories',
-            tileClicked: '',
-            info: ''
-        });
+    const subCategoryOnClick = () => {
+        const tiles = TileGenerator('subcategories',category,category,subcategory,'');
+        dispatch(reset('project'));
+        dispatch(reset('tool'));
+        dispatch(reset('tiles'));
+        dispatch(reset('info'));
+        dispatch(set('tiles',tiles));
+        dispatch(set('tile_type','projects'));
     }
 
-    categoryOnClick = async() => {
-        let tile = this.state.category;
-        await this.setState({subcategory: '', project: '', tool: ''})
-        this.props.returnToFn({  
-            subcategory: '',
-            project: '',
-            tool: '',
-            list: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-            type: 'categories',
-            tileClicked: tile,
-            info: ''
-        });
+    const projectOnClick = () => {
+        const tiles = TileGenerator('projects',category,category,subcategory,'');
+        const info = InfoGenerator('project',project);
+        dispatch(reset('tool'));
+        dispatch(reset('tiles'));
+        dispatch(set('info',info));
+        dispatch(set('tiles',tiles));
+        dispatch(set('tile_type','tools'));
     }
 
-    subCategoryOnClick = async() => {
-        let tile = this.state.subcategory;
-        await this.setState({ project: '', tool: ''})
-        this.props.returnToFn({  
-            project: '',
-            tool: '',
-            type: 'subcategories',
-            tileClicked: tile,
-            info: ''
-        });
+    if(tool !== '') {
+        return(
+            <div className='path'>
+                <div className='path-element' onClick={categoriesOnClick}>Categories</div> /
+                <div className='path-element' onClick={categoryOnClick}> {category}</div> /
+                <div className='path-element' onClick={subCategoryOnClick}> {subcategory}</div> /
+                <div className='path-element' onClick={projectOnClick}> {project}</div> /
+                <div className='path-element'> {tool}</div>
+            </div>
+        )
     }
-
-    projectOnClick = async() => {
-        let tile = this.state.project;
-        await this.setState({ tool: ''})
-        this.props.returnToFn({  
-            project: '',
-            tool: '',
-            type: 'projects',
-            tileClicked: tile,
-            info: ''
-        });
+    else if(project !== '') {
+        return(
+            <div className='path'>
+                <div className='path-element' onClick={categoriesOnClick}>Categories</div> /
+                <div className='path-element' onClick={categoryOnClick}> {category}</div> /
+                <div className='path-element' onClick={subCategoryOnClick}> {subcategory}</div> /
+                <div className='path-element'> {project}</div>
+            </div>
+        )
     }
-
-    updateState = async () => {
-        console.log('path: ' + this.props.tile + ' type: ' + this.props.type);
-        if(this.props.type === 'categories') {
-            await this.setState({
-                category: this.props.tile
-            })
-        }
-        else if(this.props.type === 'subcategories') {
-            await this.setState({
-                subcategory: this.props.tile
-            })
-        }
-        else if(this.props.type === 'projects') {
-            await this.setState({
-                project: this.props.tile
-            })
-        }
-        else {
-            await this.setState({
-                tool: this.props.tile
-            })
-        }
-        // await this.setState({
-        //     category: this.props.category,
-        //     subcategory: this.props.subcategory,
-        //     project: this.props.project,
-        //     tool: this.props.tool
-        // })
+    else if(subcategory !== '') {
+        return(
+            <div className='path'>
+                <div className='path-element' onClick={categoriesOnClick}>Categories</div> /
+                <div className='path-element' onClick={categoryOnClick}> {category}</div> /
+                <div className='path-element'> {subcategory}</div>
+            </div>
+        )
     }
-
-    componentDidUpdate(prevProps) {
-        if(prevProps.tile !== this.props.tile) {
-            this.updateState();
-        }
-        else
-            console.log('state didnt change');
+    else if(category !== '') {
+        return(
+            <div className='path'>
+                <div className='path-element' onClick={categoriesOnClick}>Categories</div> /
+                <div className='path-element'> {category}</div>
+            </div>
+        )
     }
-
+    else {
+        return(
+            <div>
+                <div className='path'>Categories</div>
+            </div>
+        )
+    }
 }
 
 export default Path;

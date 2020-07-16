@@ -1,6 +1,5 @@
-
-
 function TileGenerator(type,tile,category,subcategory,project) {
+    
       ///////////////////////////////
      // Determining Subcategories //
     ///////////////////////////////

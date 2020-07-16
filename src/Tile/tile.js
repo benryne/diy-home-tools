@@ -1,12 +1,12 @@
 import React from 'react';
 import './tile.css';
-import TileGenerator from './tileGenerator';
-import TypeGenerator from './typeGenerator';
-import PluralToSingular from './pluralToSignular';
-import InfoGenerator from './infoGenerator';
+import TileGenerator from '../Generators/tileGenerator';
+import TypeGenerator from '../Generators/typeGenerator';
+import PluralToSingular from '../Generators/pluralToSignular';
+import InfoGenerator from '../Generators/infoGenerator';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { set } from './Actions';
+import { set } from '../Actions';
 
 function Tile(tile) {
     const dispatch = useDispatch();
@@ -16,16 +16,21 @@ function Tile(tile) {
     const project = useSelector(state => state.project);
 
     const tileOnClick = () => {
-        dispatch(set('tiles',TileGenerator(tileType,tile.name,category,subcategory,project)));
-        dispatch(set(PluralToSingular(tileType),tile.name));
-        dispatch(set('tile_type',TypeGenerator(tileType)));
-        console.log(tileType);
+        const tiles = TileGenerator(tileType,tile.name,category,subcategory,project);
+        dispatch(set('tiles',tiles));
+
+        const singularTileType = PluralToSingular(tileType);
+        dispatch(set(singularTileType,tile.name));
+
+        const nextTileType = TypeGenerator(tileType);
+        dispatch(set('tile_type',nextTileType));
+
         if(tileType === 'projects' || tileType === 'tools') {
-            dispatch(set('info',InfoGenerator(tileType,tile.name)));
+            const info = InfoGenerator(tileType,tile.name);
+            dispatch(set('info',info));
         }
     }
 
-    console.log(tile);
     return(
         <div className='tile' onClick={tileOnClick}>
             <div className='tile-name'>{tile.name}</div>

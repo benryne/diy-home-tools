@@ -2,9 +2,8 @@ import React from 'react';
 import './App.css';
 import Path from './Path/path';
 import Header from './Header/header';
-import TileList from './tileList';
+import TileList from './Tile/tileList';
 import Container from '@material-ui/core/Container';
-import TileGenerator from './tileGenerator';
 
 class App extends React.Component {
   

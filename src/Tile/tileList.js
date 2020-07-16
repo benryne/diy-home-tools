@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 function TileList() {
     const tiles  = useSelector(state => state.tiles);
-    console.log(tiles);
     const info = useSelector(state => state.info);
         
     if(tiles !== '') {

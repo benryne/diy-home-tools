@@ -3,7 +3,7 @@ const tilesReducer = (state = ['Floor','Bath','Wall','Outdoor','Kitchen','Roof',
         case 'SET_TILES':
             return state = action.payload;
         case 'RESET_TILES':
-            return state = '';
+            return state = ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'];
         default:
             return state;
     }

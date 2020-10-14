@@ -1,4 +1,6 @@
 import React, {useState,useEffect} from 'react';
+import Project from './project'
+
 
 function ProjectList(props) {
 
@@ -12,7 +14,7 @@ function ProjectList(props) {
         setId(props.user.id)
         setProjects(props.user.projects)
     })
-    if(name == undefined) {
+    if(name == undefined || projects.length == 0) {
         return(
             <div>
                 kinda empty in here
@@ -20,7 +22,7 @@ function ProjectList(props) {
         )
     }
     return(
-        projects.map((p) => <div>{p}</div>)
+        projects.map((p) => <Project id={p} display></Project>)
             
     )
 }

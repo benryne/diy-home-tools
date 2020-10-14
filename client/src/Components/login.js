@@ -5,6 +5,8 @@ function Login(props) {
     const [loggedIn,setLoggedIn] = useState(false)
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [newUsername, setNewUsername] = useState('')
     const [errorMessage,setErrorMessage] = useState('')
 
     const handleSubmit = (event) => {
@@ -34,6 +36,30 @@ function Login(props) {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value)
     }
+
+
+    const handleNewSubmit = (event) => {
+        event.preventDefault();
+        const apiURL = `http://localhost:5000/create-user?name=${newUsername}&password=${newPassword}`
+        fetch(apiURL)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data) 
+                props.provideUserInfo({name: newUsername, id: data._id, projects: []})
+                setLoggedIn(true)
+            })
+        setNewUsername('')
+        setNewPassword('')
+
+    }
+
+    const handleNewUsernameChange = (event) => {
+        setNewUsername(event.target.value)
+    }
+
+    const handleNewPasswordChange = (event) => {
+        setNewPassword(event.target.value)
+    }
     
 
     if(loggedIn === true) {
@@ -42,6 +68,7 @@ function Login(props) {
     else {
         return(
             <div>
+                <div>Login</div>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Username:
@@ -54,6 +81,18 @@ function Login(props) {
                         <input type="submit" value="Submit" />
                 </form>
                 <div>{errorMessage}</div>
+                <div>Create Username</div>
+                <form onSubmit={handleNewSubmit}>
+                    <label>
+                        Username:
+                        <input type="text" value={newUsername} onChange={handleNewUsernameChange} />
+                    </label>
+                    <label>
+                        Password:
+                        <input type="text" value={newPassword} onChange={handleNewPasswordChange} />
+                    </label>
+                        <input type="submit" value="Submit" />
+                </form>
             </div>
        )
     }

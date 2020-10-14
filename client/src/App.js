@@ -5,7 +5,7 @@ import Login from './Components/login';
 // import ProjectSearch from './Components/projectSearch';
 import ProjectList from './Components/projectList';
 import NewProject from './Components/newProject';
-import ProjectCreator from './Components/projectCreator'
+import ProjectCreator from './Components/projectEditor'
 
 function App() {
 

@@ -5,7 +5,6 @@ function Project(props) {
 
     const [name,setName] = useState('')
     const [id,setId] = useState(props.id)
-    const [tools,setTools] = useState('')
 
     useEffect(() => {
         setId(props.id)
@@ -19,9 +18,12 @@ function Project(props) {
             })
     })
 
+    const projectOnClick = () => {
+        props.projectOnClick(id)
+    }
 
     return(
-        <div>{name}</div>
+        <div onClick={projectOnClick}>{name}</div>
     )
 
 }

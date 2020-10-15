@@ -7,6 +7,7 @@ function ProjectList(props) {
     const [name,setName] = useState(props.user.name)
     const [id,setId] =useState(props.user.id)
     const [projects,setProjects] = useState(props.user.projects)
+    const [display,setDisplay] = useState(true)
 
     useEffect(() => {
         console.log(name)
@@ -14,19 +15,32 @@ function ProjectList(props) {
         setId(props.user.id)
         setProjects(props.user.projects)
     })
+
+    useEffect(() => {
+        setDisplay(props.display)
+    },[props.display])
+
+    const projectOnClick = (project) => {
+        console.log('clicked')
+        setDisplay(false)
+        props.projectForEditor(project)
+    }
+    
+
+    if(display === false) {
+        return null;
+    }
     if(name == undefined || projects.length == 0) {
         return(
             <div>
                 kinda empty in here
             </div>
         )
+    } else {
+        return(
+            projects.map((p) => <Project id={p} projectOnClick={projectOnClick}></Project>)     
+        )
     }
-    return(
-        projects.map((p) => <Project id={p} display></Project>)
-            
-    )
 }
 
 export default ProjectList;
-
-// 5f7f73df031c600ff23a7be6 5f7f73ec031c600ff23a7be7

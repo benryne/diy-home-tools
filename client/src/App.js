@@ -2,26 +2,25 @@ import React, {useState} from 'react';
 import './App.css';
 import User from './Components/user';
 import Login from './Components/login';
-// import ProjectSearch from './Components/projectSearch';
 import ProjectList from './Components/projectList';
 import NewProject from './Components/newProject';
-import ProjectCreator from './Components/projectEditor'
+import ProjectEditor from './Components/projectEditor'
 
 function App() {
 
   const [user,setUser] = useState('')
-  const [loggedIn,setLoggedIn] = useState(false)
-  const [projectCreatorMode,setprojectCreatorMode] = useState(false)
-  const [[projectList],setProjectList] = useState([]);
+  const [project,setProject] = useState('')
+  const [displayProjectList,setDisplayProjectList] = useState(true)
 
-
-  const createNewProject = () => {
-    setprojectCreatorMode(true);
-  }
 
   const provideUserInfo = (user) => {
     console.log(user)
     setUser(user);
+  }
+
+  const projectForEditor = (project) => {
+    setProject(project)
+    console.log('here')
   }
 
   return(
@@ -29,9 +28,9 @@ function App() {
       <Login provideUserInfo={provideUserInfo}></Login>
       <User user={user}></User>
       {/* <ProjectSearch></ProjectSearch> */}
-      <ProjectList user={user}></ProjectList>
-      {/* <NewProject createNewProject={createNewProject}></NewProject>
-      <ProjectCreator projectCreatorMode={projectCreatorMode}></ProjectCreator> */}
+      <ProjectList user={user} projectForEditor={projectForEditor} display={displayProjectList}></ProjectList>
+      {/* <NewProject createNewProject={createNewProject}></NewProject> */}
+      <ProjectEditor project={project}></ProjectEditor>
     </div>
   )
 }

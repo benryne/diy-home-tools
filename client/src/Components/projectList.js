@@ -7,18 +7,15 @@ function ProjectList(props) {
     const [name,setName] = useState(props.user.name)
     const [id,setId] =useState(props.user.id)
     const [projects,setProjects] = useState(props.user.projects)
-    const [display,setDisplay] = useState(true)
+    const [display,setDisplay] = useState(false)
 
     useEffect(() => {
-        console.log(name)
         setName(props.user.name)
         setId(props.user.id)
         setProjects(props.user.projects)
+        setDisplay(props.display)
     })
 
-    useEffect(() => {
-        setDisplay(props.display)
-    },[props.display])
 
     const projectOnClick = (project) => {
         console.log('clicked')

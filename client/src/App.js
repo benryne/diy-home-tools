@@ -10,17 +10,24 @@ function App() {
 
   const [user,setUser] = useState('')
   const [project,setProject] = useState('')
-  const [displayProjectList,setDisplayProjectList] = useState(true)
+  const [displayProjectList,setDisplayProjectList] = useState(false)
 
 
-  const provideUserInfo = (user) => {
+  const provideUserInfo = user => {
     console.log(user)
     setUser(user);
+    setDisplayProjectList(true)
   }
 
-  const projectForEditor = (project) => {
+  const projectForEditor = project => {
     setProject(project)
+    setDisplayProjectList(false)
     console.log('here')
+  }
+
+  const returnToProjectList = () => {
+    setProject('')
+    setDisplayProjectList(true)
   }
 
   return(
@@ -30,7 +37,7 @@ function App() {
       {/* <ProjectSearch></ProjectSearch> */}
       <ProjectList user={user} projectForEditor={projectForEditor} display={displayProjectList}></ProjectList>
       {/* <NewProject createNewProject={createNewProject}></NewProject> */}
-      <ProjectEditor project={project}></ProjectEditor>
+      <ProjectEditor project={project} returnToProjectList={returnToProjectList}></ProjectEditor>
     </div>
   )
 }

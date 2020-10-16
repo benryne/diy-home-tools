@@ -1,22 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
+import { UserContext } from './userContext';
 
-function User(props) {
+function User() {
 
-    const [user,setUser] = useState('')
+    const { username,loggedIn } = useContext(UserContext)
+    const [user, setUser] = username;
+    const [loggedInValue,setLoggedInValue] = loggedIn;
 
-    useEffect(() => {
-        setUser(props.user);
-    })
-
-
-    if(user === '') {   
-        return(null)
-    }
-    else {
         return(
-            <div>{user.name}</div>
+            <div>
+                {
+                    loggedInValue ? 
+                    <div>
+                        {user}
+                    </div> :
+                    null 
+                }
+            </div>
         )
-    }
 }
 
 export default User;

@@ -7,14 +7,26 @@ function ProjectEditor(props) {
     const [toolsLeft,setToolsLeft] = useState([])
     const [display,setDisplay] = useState(false)
     const [loading,setLoading] = useState(false)
+    const [projectID,setProjectID] = useState('')
 
     const returnToProjectList = () => {
+        let toolIDs;
+        toolsSelected.forEach((tool) => {
+            toolIDs.append(tool._id)
+        })
 
-        setDisplay(false)
-        setProjectName('')
-        setToolsSelected([])
-        setToolsLeft([])
-        props.returnToProjectList()
+        /////// CREATE API ENDPOINT FOR THIS
+
+        fetch(`http://localhost:5000/update-project?project=${projectID}&toolids=${toolIDs}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            setDisplay(false)
+            setProjectName('')
+            setToolsSelected([])
+            setToolsLeft([])
+            props.returnToProjectList()
+        })
     }
 
     const selectTool = (tool) => {
@@ -51,6 +63,7 @@ function ProjectEditor(props) {
         }
         let projectID = props.project;
         console.log(projectID)
+        setProjectID(projectID)
         const apiURL = `http://localhost:5000/project-by-id?projectid=${projectID}`
 
         const fetchToolInfo = (toolIDs) => {
@@ -67,7 +80,7 @@ function ProjectEditor(props) {
 
             })
 
-            if(toolIDs.length == 0) {
+            if(toolIDs.length === 0) {
                 setToolsSelected([])
                 fetch(`http://localhost:5000/tools`)
                 .then(response => response.json())
@@ -76,8 +89,7 @@ function ProjectEditor(props) {
                     setToolsLeft(toolsSelected.concat(data))
                     setLoading(false)
                 })
-            }
-            else(
+            } else(
                 fetch(`http://localhost:5000/tools-not-by-id?toolids=${toolIDs}`)
                 .then(response => response.json())
                 .then(data => {

@@ -13,10 +13,9 @@ function Project(props) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data) 
-                let info = data[0];
                 setName(data.name);
             })
-    })
+    },[props.id])
 
     const projectOnClick = () => {
         props.projectOnClick(id)

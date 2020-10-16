@@ -5,16 +5,14 @@ import Project from './project'
 function ProjectList(props) {
 
     const [name,setName] = useState(props.user.name)
-    const [id,setId] =useState(props.user.id)
     const [projects,setProjects] = useState(props.user.projects)
     const [display,setDisplay] = useState(false)
 
     useEffect(() => {
         setName(props.user.name)
-        setId(props.user.id)
         setProjects(props.user.projects)
         setDisplay(props.display)
-    })
+    },[props.projects,props.user,props.display])
 
 
     const projectOnClick = (project) => {
@@ -27,7 +25,7 @@ function ProjectList(props) {
     if(display === false) {
         return null;
     }
-    if(name == undefined || projects.length == 0) {
+    if(name === undefined || projects.length === 0) {
         return(
             <div>
                 kinda empty in here

@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import './App.css';
 import User from './Components/user';
-import Login from './Components/login';
+import Login from './Components/Login/login';
 import ProjectList from './Components/projectList';
-import NewProject from './Components/newProject';
+// import NewProject from './Components/newProject';
 import ProjectEditor from './Components/projectEditor'
+import {UserProvider} from './Components/userContext';
 
 function App() {
 
@@ -31,14 +32,12 @@ function App() {
   }
 
   return(
-    <div>
+    <UserProvider>
       <Login provideUserInfo={provideUserInfo}></Login>
       <User user={user}></User>
-      {/* <ProjectSearch></ProjectSearch> */}
       <ProjectList user={user} projectForEditor={projectForEditor} display={displayProjectList}></ProjectList>
-      {/* <NewProject createNewProject={createNewProject}></NewProject> */}
       <ProjectEditor project={project} returnToProjectList={returnToProjectList}></ProjectEditor>
-    </div>
+    </UserProvider>
   )
 }
 

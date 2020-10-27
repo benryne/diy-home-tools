@@ -1,31 +1,33 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
+import {UserContext} from './Context/userContext'
 
-function ProjectEditor(props) {
+function ProjectEditor() {
 
+    const { editingProject, componentDisplayString } = useContext(UserContext)
     const [projectName,setProjectName] = useState('')
     const [toolsSelected,setToolsSelected] = useState([])
     const [toolsLeft,setToolsLeft] = useState([])
-    const [display,setDisplay] = useState(false)
+    const [display,setDisplay] = componentDisplayString;
     const [loading,setLoading] = useState(false)
-    const [projectID,setProjectID] = useState('')
+    const [projectID,setProjectID] = editingProject;
 
     const returnToProjectList = () => {
-        let toolIDs;
+        let toolIDs = [];
         toolsSelected.forEach((tool) => {
-            toolIDs.append(tool._id)
+            toolIDs.push(tool._id)
         })
+
+        console.log('here')
 
         /////// CREATE API ENDPOINT FOR THIS
 
-        fetch(`http://localhost:5000/update-project?project=${projectID}&toolids=${toolIDs}`)
+        fetch(`http://localhost:5000/project-update?projectid=${projectID}&toolids=${toolIDs}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            setDisplay(false)
-            setProjectName('')
-            setToolsSelected([])
+            setDisplay('projects')
             setToolsLeft([])
-            props.returnToProjectList()
+            setToolsSelected([])
         })
     }
 
@@ -56,15 +58,10 @@ function ProjectEditor(props) {
     }
 
     useEffect(() => {
-        if(props.project.length >= 1) {
-            console.log(props.project)
-            setDisplay(true)
-            setLoading(true)
-        }
-        let projectID = props.project;
         console.log(projectID)
-        setProjectID(projectID)
         const apiURL = `http://localhost:5000/project-by-id?projectid=${projectID}`
+
+        console.log(toolsLeft[0] + ' ' + toolsSelected[0])
 
         const fetchToolInfo = (toolIDs) => {
             console.log(toolIDs)
@@ -96,6 +93,7 @@ function ProjectEditor(props) {
                     console.log(data)
                     setToolsLeft(toolsLeft.concat(data))
                     setLoading(false)
+                    // setDisplay('editor')
                 })
             )
 
@@ -106,17 +104,19 @@ function ProjectEditor(props) {
             fetch(apiURL)
                 .then(request => request.json())
                 .then(data => {
+
                     setProjectName(data.name)
                     fetchToolInfo(data.tools)
                 })
         }
         
-        fetchProjectInfo()
+        if(display === 'editor')
+            fetchProjectInfo()
 
-    },[props.project])
+    },[projectID,display])
 
 
-    if(display === true) {
+    if(display === 'editor') {
         if(loading === true) {
             return(
                 <div>

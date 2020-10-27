@@ -1,12 +1,14 @@
 import React, {useState,useContext} from 'react';
-import {UserContext} from '../userContext'
+import {UserContext} from '../Context/userContext'
 
 function LoginExistingUser() {
 
-    const {username, loggedIn, userId} = useContext(UserContext)
+    const {username, loggedIn, userId, projects, componentDisplayString} = useContext(UserContext)
+    const [display,setDisplay] = componentDisplayString;
     const [usernameValue,setUsernameValue] = username;
     const [loggedInValue,setLoggedInValue] = loggedIn
     const [idValue,setIdValue] = userId;
+    const [projectsValue,setProjectsValue] = projects;
     const [newUsername,setNewUsername] = useState('')
     const [newPassword,setNewPassword] = useState('')
     const [loading,setLoading] = useState(false)
@@ -32,6 +34,8 @@ function LoginExistingUser() {
                     setUsernameValue(data[0].name)
                     setIdValue(data[0]._id)
                     setLoading(false)
+                    setProjectsValue(data[0].projects)
+                    setDisplay('projects')
                 }
             })
         setNewUsername('')
@@ -47,7 +51,7 @@ function LoginExistingUser() {
     else {
         return(
             <div>
-                <div>Create Username</div>
+                <div>Login</div>
                 <form onSubmit={handleNewSubmit}>
                     <label>
                         Username:

@@ -1,9 +1,10 @@
 import React, {useState,useContext} from 'react';
-import {UserContext} from '../userContext'
+import {UserContext} from '../Context/userContext'
 
 function CreateUser() {
 
-    const {username, loggedIn, userId} = useContext(UserContext)
+    const {username, loggedIn, userId, componentDisplayString} = useContext(UserContext)
+    const [display,setDisplay] = componentDisplayString;
     const [usernameValue,setUsernameValue] = username;
     const [loggedInValue,setLoggedInValue] = loggedIn
     const [idValue,setIdValue] = userId;
@@ -27,12 +28,13 @@ function CreateUser() {
                     setUsernameValue(data.username)
                     setIdValue(data._id)
                     setLoading(false)
+                    setDisplay('projects')
             })
         setNewUsername('')
         setNewPassword('')
     }
 
-
+    
     if(loading) {
         return(
             <div>loading...</div>

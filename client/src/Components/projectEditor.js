@@ -21,7 +21,7 @@ function ProjectEditor() {
 
         /////// CREATE API ENDPOINT FOR THIS
 
-        fetch(`http://localhost:5000/project-update?projectid=${projectID}&toolids=${toolIDs}`)
+        fetch(`http://localhost:5000/projects/project-update?projectid=${projectID}&toolids=${toolIDs}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)

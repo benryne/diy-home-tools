@@ -19,7 +19,7 @@ function CreateUser() {
     const handleNewSubmit = (event) => {
         event.preventDefault();
         setLoading(true)
-        const apiURL = `http://localhost:5000/user?name=${newUsername}&password=${newPassword}`
+        const apiURL = `http://localhost:5000/user/create-user?name=${newUsername}&password=${newPassword}`
         fetch(apiURL)
             .then((response) => response.json())
             .then((data) => {

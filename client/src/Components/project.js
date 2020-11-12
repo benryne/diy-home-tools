@@ -8,7 +8,7 @@ function Project(props) {
 
     useEffect(() => {
         setId(props.id)
-        const apiURL = `http://localhost:5000/project-by-id?projectid=${id}`
+        const apiURL = `http://localhost:5000/projects/project-by-id?projectid=${id}`
         fetch(apiURL)
             .then((response) => response.json())
             .then((data) => {

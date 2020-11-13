@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useContext} from 'react';
-import {UserContext} from './Context/userContext'
+import {UserContext} from '../Context/userContext'
 
 function ProjectEditor() {
 
@@ -18,8 +18,6 @@ function ProjectEditor() {
         })
 
         console.log('here')
-
-        /////// CREATE API ENDPOINT FOR THIS
 
         fetch(`http://localhost:5000/projects/project-update?projectid=${projectID}&toolids=${toolIDs}`)
         .then(response => response.json())
@@ -59,7 +57,7 @@ function ProjectEditor() {
 
     useEffect(() => {
         console.log(projectID)
-        const apiURL = `http://localhost:5000/project-by-id?projectid=${projectID}`
+        const apiURL = `http://localhost:5000/projects/project-by-id?projectid=${projectID}`
 
         console.log(toolsLeft[0] + ' ' + toolsSelected[0])
 
@@ -67,7 +65,7 @@ function ProjectEditor() {
             console.log(toolIDs)
             toolIDs.forEach(async (id) => {
                 console.log(id)
-                fetch(`http://localhost:5000/tools-by-id?toolids=${toolIDs}`)
+                fetch(`http://localhost:5000/tools/tools-by-id?toolids=${toolIDs}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
@@ -87,7 +85,7 @@ function ProjectEditor() {
                     setLoading(false)
                 })
             } else(
-                fetch(`http://localhost:5000/tools-not-by-id?toolids=${toolIDs}`)
+                fetch(`http://localhost:5000/tools/tools-not-by-id?toolids=${toolIDs}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)

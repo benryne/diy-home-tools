@@ -13,10 +13,9 @@ function CreateUser() {
     const [loading,setLoading] = useState(false)
 
     const handleNewUsernameChange = event => setNewUsername(event.target.value)
-
     const handleNewPasswordChange = event => setNewPassword(event.target.value)
 
-    const handleNewSubmit = (event) => {
+    const handleNewUserSubmit = (event) => {
         event.preventDefault();
         setLoading(true)
         const apiURL = `http://localhost:5000/user/create-user?name=${newUsername}&password=${newPassword}`
@@ -25,7 +24,7 @@ function CreateUser() {
             .then((data) => {
                     console.log(data) 
                     setLoggedInValue(true)
-                    setUsernameValue(data.username)
+                    setUsernameValue(data.name)
                     setIdValue(data._id)
                     setLoading(false)
                     setDisplay('projects')
@@ -44,7 +43,7 @@ function CreateUser() {
         return(
             <div>
                 <div>Create Username</div>
-                <form onSubmit={handleNewSubmit}>
+                <form onSubmit={handleNewUserSubmit}>
                     <label>
                         Username:
                         <input type="text" value={newUsername} onChange={handleNewUsernameChange} />

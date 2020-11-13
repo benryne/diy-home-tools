@@ -1,6 +1,6 @@
 import React, {useState,useContext} from 'react';
 import Project from './project'
-import {UserContext} from './Context/userContext'
+import {UserContext} from '../Context/userContext'
 
 
 function ProjectList() {
@@ -20,16 +20,15 @@ function ProjectList() {
     
 
     if(display === 'projects') {
+        // no projects
         if(usernameValue === undefined || projectsValue.length === 0) {
             return(
                 <div>
                     kinda empty in here
                 </div>
             )
-        } else {
-            return(
-                projectsValue.map((p) => <Project id={p} projectOnClick={projectOnClick}></Project>)     
-            )
+        } else { // Map of projects
+            return(projectsValue.map((p) => <Project id={p} projectOnClick={projectOnClick}></Project>))
         }
     }
     else {

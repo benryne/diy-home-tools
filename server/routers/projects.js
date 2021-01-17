@@ -67,10 +67,23 @@ router.get('/create-project', (req,res) => {
     console.log(req.query.tools)
     const project = new Project({
         name: info.name,
-        tools: info.tools,
+        tools: [],
         cost: 0
     })
     project.save()
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
+router.get('/delete-project', (req,res) => {
+    const projectId = req.query.projectid;
+    console.log(projectId);
+
+    Project.remove({_id: projectId})
         .then((result) => {
             res.send(result)
         })

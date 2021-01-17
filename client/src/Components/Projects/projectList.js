@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react';
+import React, {useEffect,useContext} from 'react';
 import Project from './project'
 import {UserContext} from '../Context/userContext'
 
@@ -11,6 +11,7 @@ function ProjectList() {
     const [editingProjectValue,setEditingProjectValue] = editingProject;
     const [display,setDisplay] = componentDisplayString
 
+    // console.log(projectsValue)
 
     const projectOnClick = (project) => {
         console.log('clicked')
@@ -18,6 +19,9 @@ function ProjectList() {
         setEditingProjectValue(project)
     }
     
+    useEffect(() => {
+        console.log(projectsValue)
+    }, [projects])
 
     if(display === 'projects') {
         // no projects
@@ -28,7 +32,7 @@ function ProjectList() {
                 </div>
             )
         } else { // Map of projects
-            return(projectsValue.map((p) => <Project id={p} projectOnClick={projectOnClick}></Project>))
+            return(projectsValue.map((value) => <Project id={value} projectOnClick={projectOnClick}></Project>))
         }
     }
     else {

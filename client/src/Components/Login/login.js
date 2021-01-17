@@ -9,11 +9,6 @@ function Login() {
     const [loggedInValue,setLoggedInValue] = loggedIn;
     const [display,setDisplay] = componentDisplayString;
 
-    const divStyle = {
-        display: 'none'
-    }
-    console.log(componentDisplayString)
-
     if(display === 'login') {
         return(
             <div>         

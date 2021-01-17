@@ -8,7 +8,7 @@ const userSchema = new Schema({
         required: true
     },
     password: {
-        type: String,
+        type: Object,
         required: true
     },
     projects: [{type: Schema.Types.ObjectId, ref: 'Project'}]

@@ -1,33 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../schemas/user');
+const { generateSalt, hash, compare } = require('../utils/userHashing');
 
 
-router.get('/create-user', (req,res) => {
+router.get('/create-user', async (req,res) => {
     const info = req.query;
     console.log(req.query)
-    const user = new User({
-        name: info.name,
-        password: info.password,
-    })
-    user.save()
-        .then((result) => {
-            res.send(result)
+    let salt = generateSalt(10);
+    try {
+        const user = new User({
+            name: info.name,
+            password: await hash(info.password, salt),
         })
-        .catch((err) => {
-            console.log(err)
-        })
+        console.log(user)
+        let response = await user.save();
+        res.send(response)
+    } catch (err) {
+        console.log(err)
+    }
 })
 
-router.get('/', (req,res) => {
-    User.find({name: req.query.name, password: req.query.password})
-        .then((result) => {
-            console.log(result)
-            res.send(result)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+router.get('/login', async (req,res) => {
+    let name = req.query.name
+    let password = req.query.password
+    let user = await User.findOne({
+        name: name
+    })
+    let match = await compare(password, user.password);
+    if(match) {
+        console.log("Hash Success")
+        res.send(user)
+    }
 })
 
 router.get('/add-project', (req,res) => {

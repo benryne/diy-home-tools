@@ -21,7 +21,7 @@ function LoginExistingUser() {
     const handleNewSubmit = (event) => {
         event.preventDefault();
         setLoading(true)
-        const apiURL = `http://localhost:5000/user?name=${newUsername}&password=${newPassword}`
+        const apiURL = `http://localhost:5000/user/login?name=${newUsername}&password=${newPassword}`
         fetch(apiURL)
             .then((response) => response.json())
             .then((data) => {
@@ -31,10 +31,10 @@ function LoginExistingUser() {
                 else{
                     console.log(data) 
                     setLoggedInValue(true)
-                    setUsernameValue(data[0].name)
-                    setIdValue(data[0]._id)
+                    setUsernameValue(data.name)
+                    setIdValue(data._id)
                     setLoading(false)
-                    setProjectsValue(data[0].projects)
+                    setProjectsValue(data.projects)
                     setDisplay('projects')
                 }
             })

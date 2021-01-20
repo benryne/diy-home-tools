@@ -1,6 +1,7 @@
 import React, {useState,useContext} from 'react'
 import CreateUser from './createUser'
 import LoginExistingUser from './loginExistingUser';
+import LogoutUser from './logoutUser';
 import { UserContext } from '../Context/userContext';
 
 function Login() {
@@ -9,7 +10,7 @@ function Login() {
     const [loggedInValue,setLoggedInValue] = loggedIn;
     const [display,setDisplay] = componentDisplayString;
 
-    if(display === 'login') {
+    if(loggedInValue  === false) {
         return(
             <div>         
                 <LoginExistingUser/>
@@ -18,7 +19,9 @@ function Login() {
         )
     }
     else {
-        return null;
+        return(
+            <LogoutUser/>
+        )
     }
 
 }

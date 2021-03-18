@@ -1,0 +1,37 @@
+import React, {useState,useEffect} from 'react';
+import ToolCategory from '../Tools/toolCateogry';
+
+function SelectedTools(props) {
+
+    const [tools,setTools] = useState([])
+    const [loading,setLoading] = useState(false)
+    
+    const unselectTool = (tool) => {
+        removeTool(tool)
+        props.unselectToolFunction(tool)
+    }
+
+    const removeTool = (tool) => {
+        setTools(tools.filter(item => item !== tool))
+    }
+
+    useEffect(() => {
+        setTools(props.tools)
+    },[props.tools])
+
+    if(loading) {
+        return(
+            <div>loading...</div>
+        )       
+    } else {
+        return(
+            <div>
+                <ToolCategory changeToolStatusFunction={unselectTool} toolCategoryName={"tool-category"} tools={tools}></ToolCategory>
+                <ToolCategory changeToolStatusFunction={unselectTool} toolCategoryName={"catogory2"} tools={tools}></ToolCategory>
+            </div>
+        )
+    }
+
+}
+
+export default SelectedTools;

@@ -1,15 +1,22 @@
 import React, {useState,useEffect,useContext} from 'react';
 import {UserContext} from '../Context/userContext'
+import SelectedTools from '../Tools/SelectedTools';
+import UnselectedTools from '../Tools/UnselectedTools'
 
 function ProjectEditor() {
 
     const { editingProject, componentDisplayString } = useContext(UserContext)
     const [projectName,setProjectName] = useState('')
     const [toolsSelected,setToolsSelected] = useState([])
-    const [toolsLeft,setToolsLeft] = useState([])
+    const [toolsUnselected,setToolsUnselected] = useState([])
     const [display,setDisplay] = componentDisplayString;
     const [loading,setLoading] = useState(false)
     const [projectID,setProjectID] = editingProject;
+    const [selectedToolsStatus,setSelectedToolsStatus] = useState(true)
+
+    const switchSelectedToolsStatus = () => {
+        setSelectedToolsStatus(!selectedToolsStatus)
+    }
 
     const returnToProjectList = () => {
         let toolIDs = [];
@@ -24,25 +31,25 @@ function ProjectEditor() {
         .then(data => {
             console.log(data)
             setDisplay('projects')
-            setToolsLeft([])
+            setToolsUnselected([])
             setToolsSelected([])
         })
     }
 
     const selectTool = (tool) => {
         console.log(tool)
-        let toolsL = toolsLeft;
+        let toolsL = toolsUnselected;
         console.log(toolsL)
         for(var i = 0; i < toolsL.length; i++ ) {
             if(tool === toolsL[i])
                 toolsL.splice(i,1)
         }
         console.log(toolsL)
-        setToolsLeft(toolsL)
+        setToolsUnselected(toolsL)
         setToolsSelected(toolsSelected.concat(tool))
     }
 
-    const unSelectTool = (tool) => {
+    const unselectTool = (tool) => {
         console.log(tool)
         let toolsS = toolsSelected;
         console.log(toolsS)
@@ -52,14 +59,14 @@ function ProjectEditor() {
         }
         console.log(toolsS)
         setToolsSelected(toolsS)
-        setToolsLeft(toolsLeft.concat(tool))
+        setToolsUnselected(toolsUnselected.concat(tool))
     }
 
     useEffect(() => {
         console.log(projectID)
         const apiURL = `http://localhost:5000/projects/project-by-id?projectid=${projectID}`
 
-        console.log(toolsLeft[0] + ' ' + toolsSelected[0])
+        console.log(toolsUnselected[0] + ' ' + toolsSelected[0])
 
         const fetchToolInfo = (toolIDs) => {
             console.log(toolIDs)
@@ -81,7 +88,7 @@ function ProjectEditor() {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    setToolsLeft(toolsSelected.concat(data))
+                    setToolsUnselected(toolsSelected.concat(data))
                     setLoading(false)
                 })
             } else(
@@ -89,7 +96,7 @@ function ProjectEditor() {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    setToolsLeft(toolsLeft.concat(data))
+                    setToolsUnselected(toolsUnselected.concat(data))
                     setLoading(false)
                     // setDisplay('editor')
                 })
@@ -122,18 +129,22 @@ function ProjectEditor() {
                 </div>
             )
         }
+        else if(selectedToolsStatus === true) {
+            return(
+                <div>
+                    <div>{projectName}</div>
+                    <SelectedTools unselectToolFunction={unselectTool} tools={toolsSelected}></SelectedTools>
+                    <button onClick={switchSelectedToolsStatus}>Add Tools</button>
+                    <button onClick={returnToProjectList}>save</button>
+                </div>
+            )
+        }
         else {
             return(
                 <div>
-                    <div>{projectName} </div>
-                    <div>tools selected:</div>
-                    <div>
-                        {toolsSelected.map((tool) => <div key={tool._id} onClick={() => unSelectTool(tool)}>{tool.name}</div>)}
-                    </div>
-                    <div>other tools:</div>
-                    <div>
-                        {toolsLeft.map((tool) => <div key={tool._id} onClick={() => selectTool(tool)}>{tool.name}</div>)}
-                    </div>
+                    <div>{projectName}</div>
+                    <UnselectedTools selectToolFunction={selectTool} tools={toolsUnselected}></UnselectedTools>
+                    <button onClick={switchSelectedToolsStatus}>Remove Tools</button>
                     <button onClick={returnToProjectList}>save</button>
                 </div>
             )
@@ -142,9 +153,6 @@ function ProjectEditor() {
     else {
         return(null)
     }
-
-
-
 }
 
 export default ProjectEditor;

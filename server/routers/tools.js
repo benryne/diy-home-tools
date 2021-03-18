@@ -13,10 +13,15 @@ router.get('/', (req,res) => {
 })
 
 router.get('/add-tool', (req,res) => {
+    let name = req.query.name;
+    let category = req.query.category;
+    let price = req.query.price;
+    let affiliateLink = req.query.affiliateLink
     const tool = new Tool({
-        name: 'tool1',
-        category: 'tool-category',
-        price: 5.50
+        name: name,
+        category: category,
+        price: price,
+        affiliateLink: affiliateLink
     });
 
     tool.save()
@@ -65,7 +70,8 @@ router.get('/tools-not-by-id', (req,res) => {
 })
 
 router.get('/tools-by-category', (req,res) => {
-    Tool.find().where('category').equals('tool-category')
+    var toolCategory = req.query.toolcategory
+    Tool.find().where('category').equals(toolCategory)
         .then((result) => {
             res.send(result);
         })

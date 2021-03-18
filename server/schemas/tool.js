@@ -13,7 +13,11 @@ const toolSchema = new Schema({
     },
     price:  {
         type: Number,
-        required: true
+        required: false
+    },
+    affiliateLink: {
+        type: String,
+        required: false
     }
 })
 

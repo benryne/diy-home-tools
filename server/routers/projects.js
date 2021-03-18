@@ -92,4 +92,28 @@ router.get('/delete-project', (req,res) => {
         })
 })
 
+
+// router.get('/project-tools-by-category', (req,res) => {
+//     const projectId = req.query.projectid;
+//     const toolCategory = req.query.toolcategory;
+//     console.log(projectId);
+//     let matchingTools = []
+
+//     Project.findById(req.query.projectid)
+//     .then((result) => {
+//         const tools = result.tools
+//         tools.forEach(tool => {
+//             if(tool.category === toolCategory) {
+//                 matchingTools.push(tool)
+//             }
+//         });
+//         fetch()
+//         res.send(result);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     })
+
+// })
+
 module.exports = router;

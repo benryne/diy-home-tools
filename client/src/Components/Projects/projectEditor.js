@@ -41,8 +41,10 @@ function ProjectEditor() {
         let toolsL = toolsUnselected;
         console.log(toolsL)
         for(var i = 0; i < toolsL.length; i++ ) {
-            if(tool === toolsL[i])
+            if(tool._id == toolsL[i]._id) {
+                console.log("here")
                 toolsL.splice(i,1)
+            }
         }
         console.log(toolsL)
         setToolsUnselected(toolsL)

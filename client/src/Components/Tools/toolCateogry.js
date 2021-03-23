@@ -1,42 +1,38 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect} from 'react';
 
-import {UserContext} from '../Context/userContext';
 import Tool from './tool';
 
 function ToolCategory(props) {
 
-    const { editingProject, componentDisplayString } = useContext(UserContext)
     const toolCategoryName = props.toolCategoryName
-    const addOrRemoveString = props.addOrRemoveString
-    const [projectID,setProjectID] = editingProject
-    const [display,setDisplay] = componentDisplayString
-    const [tools,setTools] = useState([])
+    const [tools,setTools] = useState(props.tools)
     const [loading,setLoading] = useState(true)
     
-
-    const toolOnClick = (tool) => {
+    const changeToolStatus = (tool) => {
         let toolsL = tools;
         console.log(toolsL)
+        console.log(tool)
         for(var i = 0; i < toolsL.length; i++ ) {
             if(tool === toolsL[i])
                 toolsL.splice(i,1)
         }
+        console.log(toolsL)
         setTools(toolsL)
+        props.changeToolStatus(tool)
     }
 
     useEffect(() => {
+        console.log(props.tools)
         setLoading(true)
         fetch(`http://localhost:5000/tools/tools-by-category?toolcategory=${toolCategoryName}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            console.log(tools)
             let toolsInCategory = []
-            console.log(props.tools)
             data.forEach(tool => { 
                 props.tools.forEach(_tool => {
-                    console.log(tool)
-                    console.log(_tool)
-                    if(_tool === tool) {
+                    if(_tool._id == tool._id) {
                         toolsInCategory.push(tool)
                     }
                 })
@@ -57,7 +53,7 @@ function ToolCategory(props) {
             <div>
                 <div>{toolCategoryName}</div>
                 <div>
-                    {tools.map((tool) => <Tool onClick={toolOnClick} name={tool.name}></Tool>)}
+                    {tools.map((tool) => <Tool changeToolStatus={changeToolStatus} tool={tool}></Tool>)}
                 </div>
             </div>
         )

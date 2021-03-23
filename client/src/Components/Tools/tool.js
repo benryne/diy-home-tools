@@ -3,14 +3,21 @@ import React, {useState,useEffect} from 'react'
 
 function Tool(props) {
 
-    const [name,setName] = useState(props.name)
+    const [tool,setTool] = useState(props.tool)
+
+    const changeToolStatus = () => {
+        props.changeToolStatus(tool)
+    }
 
     useEffect(() => {
-        setName(props.name)
+        setTool(props.tool)
     })
 
     return(
-        <div>{name}</div>
+        <div>
+            <div>{tool.name}</div>
+            <button onClick={changeToolStatus}>change</button>
+        </div>
     )
 
 }

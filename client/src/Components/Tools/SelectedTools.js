@@ -7,8 +7,8 @@ function SelectedTools(props) {
     const [loading,setLoading] = useState(false)
     
     const unselectTool = (tool) => {
-        removeTool(tool)
         props.unselectToolFunction(tool)
+        removeTool(tool)
     }
 
     const removeTool = (tool) => {
@@ -17,6 +17,7 @@ function SelectedTools(props) {
 
     useEffect(() => {
         setTools(props.tools)
+        console.log(props.tools)
     },[props.tools])
 
     if(loading) {
@@ -26,8 +27,8 @@ function SelectedTools(props) {
     } else {
         return(
             <div>
-                <ToolCategory changeToolStatusFunction={unselectTool} toolCategoryName={"tool-category"} tools={tools}></ToolCategory>
-                <ToolCategory changeToolStatusFunction={unselectTool} toolCategoryName={"catogory2"} tools={tools}></ToolCategory>
+                <ToolCategory changeToolStatus={unselectTool} toolCategoryName={"tool-category"} tools={tools}></ToolCategory>
+                <ToolCategory changeToolStatus={unselectTool} toolCategoryName={"catogory2"} tools={tools}></ToolCategory>
             </div>
         )
     }

@@ -1,63 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import Path from './Path/path';
-import Header from './Header/header';
-import TileList from './Tile/tileList';
-import Container from '@material-ui/core/Container';
+import User from './Components/user';
+import Login from './Components/Login/login';
+import ProjectList from './Components/Projects/projectList';
+// import NewProject from './Components/newProject';
+import ProjectEditor from './Components/Projects/projectEditor'
+import {UserProvider} from './Components/Context/userContext';
+import ProjectContainer from './Components/Projects/ProjectContainer';
 
-class App extends React.Component {
-  
-  constructor() {
-    super(); 
-    this.state = {  
-      categories: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-      category: '',
-      subcategory: '',
-      project: '',
-      tool: '',
-      list: ['Floor','Bath','Wall','Outdoor','Kitchen','Roof','Lighting'],
-      type: 'categories',
-      tileClicked: '',
-      info: ''
-    };
+function App() {
+
+  const [user,setUser] = useState('')
+  const [project,setProject] = useState('')
+  const [displayProjectList,setDisplayProjectList] = useState(false)
+
+
+  const provideUserInfo = user => {
+    console.log(user)
+    setUser(user);
+    setDisplayProjectList(true)
   }
 
-  render() {
-    return(
-      <div className='app'>
-        <Container>
-          <Header></Header>
-          <Path type={this.state.type} tile={this.state.tileClicked} returnToFn={this.returnToFn} ></Path>
-          <TileList onClickFn={this.tileOnClick} type={this.state.type} list={this.state.list} info={this.state.info}></TileList>
-        </Container>
-      </div>
-    )
+  const projectForEditor = project => {
+    setProject(project)
+    setDisplayProjectList(false)
+    console.log('here')
   }
 
-  setTileState = async (list,type,info) => {
-    await this.setState({list, type, info})
+  const returnToProjectList = () => {
+    setProject('')
+    setDisplayProjectList(true)
   }
 
-  tileOnClick = async (tile) => {
-    if(this.state.type === 'categories') {
-      await this.setState({tileClicked: tile, category: tile});
-    }
-    else if(this.state.type === 'subcategories') {
-      await this.setState({tileClicked: tile, subcategory: tile});
-    }
-    else if(this.state.type === 'projects') {
-      await this.setState({tileClicked: tile, project: tile});
-    }
-    else {
-      await this.setState({tileClicked: tile, tool: tile});
-    }
-
-  }
-
-  returnToFn = async (stateObject) => {
-    await this.setState(stateObject)
-  }
-
+  return(
+    <UserProvider>
+      <Login provideUserInfo={provideUserInfo}></Login>
+      <User user={user}></User>
+      <ProjectContainer></ProjectContainer>
+    </UserProvider>
+  )
 }
 
 export default App;

@@ -7,6 +7,22 @@ import ProjectList from './Components/Projects/projectList';
 import ProjectEditor from './Components/Projects/projectEditor'
 import {UserProvider} from './Components/Context/userContext';
 import ProjectContainer from './Components/Projects/ProjectContainer';
+import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#212121',
+      blue: '#177e89',
+      white: '#FFFFFF',
+      purple: '#6320ee',
+      lightBlue: '#00e8fc'
+    },
+    secondary: {
+      main: '#E7D2CC',
+    },
+  },
+});
 
 function App() {
 
@@ -32,11 +48,15 @@ function App() {
     setDisplayProjectList(true)
   }
 
+
+
   return(
     <UserProvider>
-      <Login provideUserInfo={provideUserInfo}></Login>
-      <User user={user}></User>
-      <ProjectContainer></ProjectContainer>
+      <ThemeProvider theme={theme}>
+        <Login provideUserInfo={provideUserInfo}></Login>
+        <User user={user}></User>
+        <ProjectContainer></ProjectContainer>
+      </ThemeProvider>
     </UserProvider>
   )
 }

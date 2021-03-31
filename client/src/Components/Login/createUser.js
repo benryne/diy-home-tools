@@ -1,8 +1,75 @@
 import React, {useState,useContext} from 'react';
 import {UserContext} from '../Context/userContext'
+import { makeStyles } from '@material-ui/core/styles'
 
-function CreateUser() {
 
+const useStyles = makeStyles((theme) => ({
+    title: {
+        textAlign: 'center',
+        fontSize: 30,
+        paddingTop: 100,
+        paddingBottom: 10,
+        color: theme.palette.primary.white,
+        fontWeight: 700
+    },
+    inputTop: {
+        width: 400,
+        height: 30,
+        fontSize: 16,
+        display: 'flex',
+        margin: 'auto',
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
+        border: 'none',
+        placeholderColor: theme.palette.primary.purple
+    },
+    inputBottom: {
+        width: 400,
+        height: 30,
+        fontSize: 16,
+        display: 'flex',
+        margin: 'auto',
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
+        border: 'none',
+        color: theme.palette.primary.purple,
+        borderTop: '1px solid #303030'
+        
+    },
+    signInButton: {
+        width: 408,
+        margin: 46,
+        height: 40,
+        textAlign: 'center',
+        backgroundColor: theme.palette.primary.purple,
+        color: theme.palette.primary.white,
+        fontSize: 16,
+        border: 'none',
+        borderRadius: 5,
+        fontWeight: 700,
+        '&:hover': {
+            cursor: 'pointer'
+        }
+    },
+    switchLoginTypeText: {
+        textAlign: 'center',
+        fontSize: 16,
+        paddingBottom: 50,
+        fontWeight: 500
+    },
+    switchLoginTypeButton: {
+        color: theme.palette.primary.purple,
+        display: 'inline',
+        '&:hover': {
+            cursor: 'pointer'
+        }
+    }
+
+}));
+
+function CreateUser(props) {
+
+    const classes = useStyles();
     const {username, loggedIn, userId, componentDisplayString} = useContext(UserContext)
     const [display,setDisplay] = componentDisplayString;
     const [usernameValue,setUsernameValue] = username;
@@ -42,17 +109,12 @@ function CreateUser() {
     else {
         return(
             <div>
-                <div>Create Username</div>
+                <div className={classes.title}>Create Your Account</div>
+                <div className={classes.switchLoginTypeText}>or   <div className={classes.switchLoginTypeButton} onClick={() => props.switchUser(true)}>Already have an account</div></div>
                 <form onSubmit={handleNewUserSubmit}>
-                    <label>
-                        Username:
-                        <input type="text" value={newUsername} onChange={handleNewUsernameChange} />
-                    </label>
-                    <label>
-                        Password:
-                        <input type="text" value={newPassword} onChange={handleNewPasswordChange} />
-                    </label>
-                        <input type="submit" value="Submit" />
+                    <input className={classes.inputTop} type="text" placeholder="Username" value={newUsername} onChange={handleNewUsernameChange} />
+                    <input className={classes.inputBottom} type="text" value={newPassword} placeholder="Password" onChange={handleNewPasswordChange} />
+                    <input className={classes.signInButton} type="submit" value="Create account" />
                 </form>
             </div>
         )

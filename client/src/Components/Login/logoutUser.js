@@ -1,6 +1,7 @@
 import React, {useState,useContext} from 'react'
 import CreateUser from './createUser'
 import LoginExistingUser from './loginExistingUser';
+import Button from '@material-ui/core/Button'
 import { UserContext } from '../Context/userContext';
 
 function LogoutUser() {
@@ -21,7 +22,7 @@ function LogoutUser() {
     }
 
     return(
-        <button onClick={handUserLogout}>Logout</button>
+        <Button onClick={handUserLogout}>Logout</Button>
     )
 
 }

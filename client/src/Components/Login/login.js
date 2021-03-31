@@ -1,8 +1,9 @@
 import React, {useState,useContext} from 'react'
-import CreateUser from './createUser'
-import LoginExistingUser from './loginExistingUser';
+import LoginUser from './loginUser'
 import LogoutUser from './logoutUser';
 import { UserContext } from '../Context/userContext';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 function Login() {
 
@@ -10,19 +11,13 @@ function Login() {
     const [loggedInValue,setLoggedInValue] = loggedIn;
     const [display,setDisplay] = componentDisplayString;
 
-    if(loggedInValue  === false) {
-        return(
-            <div>         
-                <LoginExistingUser/>
-                <CreateUser/> 
-            </div> 
-        )
-    }
-    else {
-        return(
-            <LogoutUser/>
-        )
-    }
+    return(
+        <AppBar position="static">
+            <Toolbar>
+                {loggedInValue ? <LogoutUser/> : <LoginUser/>}
+            </Toolbar>
+        </AppBar>
+    )
 
 }
 

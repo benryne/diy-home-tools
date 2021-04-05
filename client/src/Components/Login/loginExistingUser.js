@@ -1,5 +1,5 @@
-import React, {useState,useContext} from 'react';
-import {UserContext} from '../Context/userContext'
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../Context/userContext'
 import { makeStyles } from '@material-ui/core/styles'
 import { palette, fontWeight } from '@material-ui/system';
 import Button from '@material-ui/core/Button'

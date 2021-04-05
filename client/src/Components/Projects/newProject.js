@@ -1,5 +1,23 @@
 import React ,{ useContext, useState } from 'react';
-import {UserContext} from '../Context/userContext'
+import {UserContext} from '../Context/userContext';
+import { makeStyles } from '@material-ui/styles';
+import { Container,Button } from '@material-ui/core';
+import NewProjectModal from './newProjectModal';
+
+const useStyles = makeStyles((theme) => ({
+    createProjectButton: {
+        backgroundColor: theme.palette.primary.purple,
+        color: theme.palette.primary.white,
+        borderRadius: 5,
+        width: 200,
+        height: 40,
+        fontSize: 16,
+        fontWeight: 700,
+        textAlign: "center",
+        lineHeight: "40px",
+        marginTop: 50
+    }
+}));
 
 function NewProject() {
 
@@ -8,12 +26,15 @@ function NewProject() {
     const [user,setUser] = userId;
     const [createdProject,setCreatedProject] = editingProject;
     const [projectList,setProjectList] = projects;
-    const [newProjectName,setNewProjectName] = useState('')
+    const [modalOpen,setModalOpen] = useState(false)
 
+    const classes = useStyles();
 
-    const createNewProjectSubmitHandler = (event) => {
-        event.preventDefault();
-        console.log(event);
+    const closeModal = () => {
+        setModalOpen(false)
+    }
+
+    const createNewProject = (newProjectName) => {
 
         // creates new project in mongodb
         const apiURL = `http://localhost:5000/projects/create-project?name=${newProjectName}`
@@ -28,29 +49,22 @@ function NewProject() {
                     .then((response) => response.json())
                     .then((data) => {
                         console.log(data)
-                        setNewProjectName('')
                         setCreatedProject(projectId)
                         const newProjectList = projectList.concat(projectId);
                         setProjectList(newProjectList);
+                        setModalOpen(false)
                         setDisplay('editor')
                     })
             })
     }
 
-    const handleProjectNameChange = (event) => setNewProjectName(event.target.value);
 
     if(display === 'projects') {
         return(
-            <div>
-                Create Project
-                <form onSubmit={createNewProjectSubmitHandler}>
-                    <label>
-                        Project Name:
-                        <input type="text" value={newProjectName} onChange={handleProjectNameChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
+            <Container maxWidth="xl">
+                <Button className={classes.createProjectButton} onClick={() => setModalOpen(true)}>Create Project</Button>
+                {modalOpen ? <NewProjectModal createNewProject={createNewProject} closeModal={closeModal} ></NewProjectModal> : null}
+            </Container>
         )
     } else {
         return null;

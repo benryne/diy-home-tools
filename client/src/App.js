@@ -8,6 +8,7 @@ import ProjectEditor from './Components/Projects/projectEditor'
 import {UserProvider} from './Components/Context/userContext';
 import ProjectContainer from './Components/Projects/ProjectContainer';
 import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const theme = createMuiTheme({
   palette: {

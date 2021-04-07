@@ -13,11 +13,12 @@ import Container from '@material-ui/core/Container';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#212121',
+      main: '#181a1b',
       blue: '#177e89',
-      white: '#FFFFFF',
+      white: '#d6d3cd',
       purple: '#6320ee',
-      lightBlue: '#00e8fc'
+      lightBlue: '#00e8fc',
+      lightGrey: '#3c4143'
     },
     secondary: {
       main: '#E7D2CC',
@@ -55,7 +56,7 @@ function App() {
     <UserProvider>
       <ThemeProvider theme={theme}>
         <Login provideUserInfo={provideUserInfo}></Login>
-        <User user={user}></User>
+        {/* <User user={user}></User> */}
         <ProjectContainer></ProjectContainer>
       </ThemeProvider>
     </UserProvider>

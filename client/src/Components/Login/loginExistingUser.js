@@ -14,27 +14,35 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 700
     },
     inputTop: {
-        width: 400,
+        width: 390,
         height: 30,
         fontSize: 16,
         display: 'flex',
         margin: 'auto',
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
-        border: 'none',
-        placeholderColor: theme.palette.primary.purple
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.white,
+        borderColor: theme.palette.primary.lightGrey,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderBottomWidth: 0,
+        paddingLeft: 10
     },
     inputBottom: {
-        width: 400,
+        width: 390,
         height: 30,
         fontSize: 16,
         display: 'flex',
         margin: 'auto',
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
-        border: 'none',
-        color: theme.palette.primary.purple,
-        borderTop: '1px solid #303030'
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.white,
+        borderColor: theme.palette.primary.lightGrey,
+        borderWidth: 1,
+        borderStyle: "solid",
+        paddingLeft: 10
     },
     signInButton: {
         width: 408,

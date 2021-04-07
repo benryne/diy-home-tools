@@ -27,7 +27,7 @@ function User() {
 
     if(loggedInValue) {
         return(
-            <Container className={classes.containerStyle} maxWidth="xl">
+            <Container className={classes.containerStyle} maxWidth="lg">
                 <div className={classes.userTitle}>Hi {user}!</div>
             </Container>
         )

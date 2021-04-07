@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 700,
         textAlign: "center",
         lineHeight: "40px",
-        marginTop: 50
+        marginTop: 50,
+        marginBottom: 50
     }
 }));
 
@@ -61,7 +62,7 @@ function NewProject() {
 
     if(display === 'projects') {
         return(
-            <Container maxWidth="xl">
+            <Container maxWidth="lg">
                 <Button className={classes.createProjectButton} onClick={() => setModalOpen(true)}>Create Project</Button>
                 {modalOpen ? <NewProjectModal createNewProject={createNewProject} closeModal={closeModal} ></NewProjectModal> : null}
             </Container>

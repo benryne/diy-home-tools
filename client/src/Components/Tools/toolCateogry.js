@@ -1,12 +1,35 @@
 import React, { useState, useEffect} from 'react';
-
 import Tool from './tool';
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    toolCategoryContainer: {
+        borderColor: theme.palette.primary.white,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderRadius: 5,
+    },
+    toolCategoryName: {
+        color: theme.palette.primary.white,
+        fontSize: 30,
+        fontWeight: 700,
+        padding: 10,
+        marginTop: 20,
+        marginBottom: 20,
+        borderBottomColor: theme.palette.primary.lightGrey,
+        borderBottomStyle: 'solid',
+        borderBottomWidth: 2,
+        dislay: 'flex'
+    }
+}));
 
 function ToolCategory(props) {
 
     const toolCategoryName = props.toolCategoryName
     const [tools,setTools] = useState(props.tools)
+    const [toolsStatus,settoolsStatus] = useState(props.toolsStatus)
     const [loading,setLoading] = useState(true)
+    const classes = useStyles()
     
     const changeToolStatus = (tool) => {
         let toolsL = tools;
@@ -50,10 +73,10 @@ function ToolCategory(props) {
         )       
     } else {
         return(
-            <div>
-                <div>{toolCategoryName}</div>
+            <div classname={classes.toolCategoryContainer}>
+                <div className={classes.toolCategoryName}>{toolCategoryName}</div>
                 <div>
-                    {tools.map((tool) => <Tool changeToolStatus={changeToolStatus} tool={tool}></Tool>)}
+                    {tools.map((tool) => <Tool toolStatus={toolsStatus} changeToolStatus={changeToolStatus} tool={tool}></Tool>)}
                 </div>
             </div>
         )

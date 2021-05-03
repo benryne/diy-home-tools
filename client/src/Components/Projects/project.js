@@ -41,17 +41,15 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         position: 'absolute',
         whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
     },
     description: {
         position: 'absolute',
         left: 10,
-        bottom: 10,
-        height: 70,
+        bottom: 20,
+        maxHeight: 55,
         width: 300,
         overflow: 'hidden',
         position: 'absolute',
-        textOverflow: 'ellipsis',
         textAlign: 'justify'
     },
     projectPhoto: {

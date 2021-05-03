@@ -27,8 +27,8 @@ function SelectedTools(props) {
     } else {
         return(
             <div>
-                <ToolCategory changeToolStatus={unselectTool} toolCategoryName={"tool-category"} tools={tools}></ToolCategory>
-                <ToolCategory changeToolStatus={unselectTool} toolCategoryName={"catogory2"} tools={tools}></ToolCategory>
+                <ToolCategory toolsStatus='selected' changeToolStatus={unselectTool} toolCategoryName={"tool-category"} tools={tools}></ToolCategory>
+                <ToolCategory toolsStatus='selected' changeToolStatus={unselectTool} toolCategoryName={"catogory2"} tools={tools}></ToolCategory>
             </div>
         )
     }

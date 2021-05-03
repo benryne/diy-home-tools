@@ -2,6 +2,54 @@ import React, {useState,useEffect,useContext} from 'react';
 import {UserContext} from '../Context/userContext'
 import SelectedTools from '../Tools/SelectedTools';
 import UnselectedTools from '../Tools/UnselectedTools'
+import { Container, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    toolEditorContainer: {
+        borderColor: theme.palette.primary.lightGrey,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        position: 'relative',
+        borderRadius: 10,
+        marginBottom: 50
+    },
+    projectName: {
+        color: theme.palette.primary.white,
+        fontSize: 50,
+        fontWeight: 700,
+        display: 'inline-block',
+        height: 100,
+        lineHeight: '100px'
+    },
+    saveButton: {
+        backgroundColor: theme.palette.primary.purple,
+        color: theme.palette.primary.white,
+        fontSize: 18,
+        fontWeight: 700,
+        position: 'absolute',
+        width: 150,
+        height: 40,
+        right: 30,
+        top: 30,
+        border: 'none',
+        borderRadius: 5
+    },
+    switchButton: {
+        backgroundColor: theme.palette.primary.purple,
+        color: theme.palette.primary.white,
+        fontSize: 18,
+        fontWeight: 700,
+        position: 'absolute',
+        width: 150,
+        height: 40,
+        right: 200,
+        top: 30,
+        border: 'none',
+        borderRadius: 5
+    }
+}));
+
 
 function ProjectEditor() {
 
@@ -13,6 +61,7 @@ function ProjectEditor() {
     const [loading,setLoading] = useState(false)
     const [projectID,setProjectID] = editingProject;
     const [selectedToolsStatus,setSelectedToolsStatus] = useState(true)
+    const classes = useStyles()
 
     const switchSelectedToolsStatus = () => {
         setSelectedToolsStatus(!selectedToolsStatus)
@@ -134,20 +183,28 @@ function ProjectEditor() {
         else if(selectedToolsStatus === true) {
             return(
                 <div>
-                    <div>{projectName}</div>
-                    <SelectedTools unselectToolFunction={unselectTool} tools={toolsSelected}></SelectedTools>
-                    <button onClick={switchSelectedToolsStatus}>Add Tools</button>
-                    <button onClick={returnToProjectList}>save</button>
+                    <Container className={classes.toolEditorContainer} maxWidth='lg'>
+                        <div className={classes.projectName}>{projectName}</div>
+                        <Button class={classes.switchButton} onClick={switchSelectedToolsStatus}>Add Tools</Button>
+                        <Button class={classes.saveButton} onClick={returnToProjectList}>Save</Button>
+                    </Container>
+                    <Container className={classes.toolEditorContainer} maxWidth='lg'>
+                        <SelectedTools unselectToolFunction={unselectTool} tools={toolsSelected}></SelectedTools>
+                    </Container>
                 </div>
             )
         }
         else {
             return(
                 <div>
-                    <div>{projectName}</div>
-                    <UnselectedTools selectToolFunction={selectTool} tools={toolsUnselected}></UnselectedTools>
-                    <button onClick={switchSelectedToolsStatus}>Remove Tools</button>
-                    <button onClick={returnToProjectList}>save</button>
+                    <Container className={classes.toolEditorContainer} maxWidth='lg'>
+                        <div className={classes.projectName}>{projectName}</div>
+                        <Button class={classes.switchButton} onClick={switchSelectedToolsStatus}>Remove Tools</Button>
+                        <Button class={classes.saveButton} onClick={returnToProjectList}>Save</Button>
+                    </Container>
+                    <Container className={classes.toolEditorContainer} maxWidth='lg'>
+                        <UnselectedTools selectToolFunction={selectTool} tools={toolsUnselected}></UnselectedTools>
+                    </Container>
                 </div>
             )
         }
